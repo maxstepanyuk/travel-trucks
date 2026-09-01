@@ -7,6 +7,8 @@ export default function Heder() {
     <header>
       <div className="container">
         <Link href="/" className={css.logo}>
+          <span className={css.logoAccent}>Travel</span>
+          Trucks
         </Link>
       </div>
     </header>
