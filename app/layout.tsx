@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 
+import Heder from "@/components/Header/Header";
+
 const inter = Inter({
   variable: "--font-family", // todo: rename
   subsets: ["latin"],
@@ -23,7 +25,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Heder />
+        {children}
+      </body>
     </html>
   );
 }
