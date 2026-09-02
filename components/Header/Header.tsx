@@ -24,7 +24,7 @@ export default function Heder() {
       <header className={css.header}>
         <Link href="/" className={css.headerLink}>
           <svg width={136} height={16}>
-            <use href="/logo.svg" />
+            <use href="/logo.svg#logo" />
           </svg>
         </Link>
         <nav>
