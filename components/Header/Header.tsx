@@ -1,10 +1,24 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
 import css from "./Header.module.css";
 import Container from "../Container/Container";
 import clsx from "clsx";
+import { usePathname } from "next/navigation";
+
+interface NavItem {
+  name: string;
+  href: string;
+}
+
+const navItems: NavItem[] = [
+  { name: "Home", href: "/" },
+  { name: "Catalog", href: "/catalog" },
+];
 
 export default function Heder() {
+  const pathname = usePathname();
+
   return (
     <Container>
       <header className={css.header}>
@@ -15,26 +29,23 @@ export default function Heder() {
         </Link>
         <nav>
           <ul className={css.navigationList}>
-            <li>
-              <Link
-                className={clsx(
-                  css.navigationLink,
-                  css.navigationLinkActive,
-                  css.headerLink,
-                )}
-                href="/"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                className={clsx(css.navigationLink, css.headerLink)}
-                href="/catalog"
-              >
-                Catalog
-              </Link>
-            </li>
+            {navItems.map((item) => {
+              const isActive = item.href === pathname;
+              return (
+                <li key={item.name}>
+                  <Link
+                    className={clsx(
+                      css.headerLink,
+                      css.navigationLink,
+                      isActive && css.navigationLinkActive,
+                    )}
+                    href={item.href}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </header>
