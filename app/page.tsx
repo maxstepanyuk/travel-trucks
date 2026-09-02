@@ -22,7 +22,6 @@ export default function Home() {
           priority
           sizes="100vw"
         />
-        <div className={css.heroOverlay} />
       </div>
 
       <Container>
