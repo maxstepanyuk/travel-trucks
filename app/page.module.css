@@ -1,0 +1,71 @@
+/* todo cleanup */
+
+.hero {
+  position: relative;
+
+  padding-top: 195px;
+  padding-bottom: 325px;
+
+  max-width: 1440px;
+  margin: 0 auto;
+
+  /* background-color: rgba(0, 0, 0, 0.2); */
+}
+
+.heroImageContainer {
+  position: absolute;
+  width: 1440px;
+  height: 696px;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.heroOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.text {
+  position: relative;
+  margin-bottom: 40px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 48px;
+
+  /* line-height: 32px; */
+  line-height: 0.66667;
+  color: var(--inputs);
+}
+
+.description {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+
+  /* line-height: 32px; */
+  line-height: 1.33333;
+  color: var(--inputs);
+}
+
+.link {
+  width: 173px;
+  height: 56px;
+}
