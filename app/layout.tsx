@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
+
+import "modern-normalize/modern-normalize.css";
 import "./globals.css";
 
 import Heder from "@/components/Header/Header";
