@@ -1,9 +1,9 @@
 .headerBackground {
   background: var(--inputs);
+  border-bottom: 1px solid var(--badges);
 }
 
 .header {
-  border-bottom: 1px solid var(--badges);
   display: flex;
   align-items: center;
   justify-content: flex-start;
