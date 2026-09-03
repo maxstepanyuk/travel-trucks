@@ -59,6 +59,12 @@ ul {
   padding-left: 0;
 }
 
+.container {
+  max-width: 1440px;
+  padding: 0px 64px;
+  margin: auto;
+}
+
 /* todo?: mv to button.module.css or something*/
 .buttonSolid {
   padding: 16px 0px;
