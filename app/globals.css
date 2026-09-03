@@ -61,6 +61,8 @@ ul {
 
 /* todo?: mv to button.module.css or something*/
 .buttonSolid {
+  padding: 16px 0px;
+
   display: flex;
   align-items: center;
   justify-content: center;
