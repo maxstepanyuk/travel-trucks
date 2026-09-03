@@ -37,7 +37,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: var(--background);
+  background-color: var(--white);
 }
 
 * {
@@ -61,6 +61,8 @@ ul {
 
 /* todo?: mv to button.module.css or something*/
 .buttonSolid {
+  padding: 16px 0px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,4 +81,17 @@ ul {
   &:active {
     background: var(--green-hover);
   }
+}
+
+.badge {
+  padding: 12px 18px;
+  border-radius: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
+
+  background: var(--badges);
 }

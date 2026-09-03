@@ -1,3 +1,7 @@
+.headerBackground {
+  background: var(--inputs);
+}
+
 .header {
   border-bottom: 1px solid var(--badges);
   display: flex;
