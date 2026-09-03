@@ -100,4 +100,5 @@ ul {
   gap: 8px;
 
   background: var(--badges);
+  mix-blend-mode: multiply;
 }
