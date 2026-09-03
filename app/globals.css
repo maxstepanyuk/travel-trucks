@@ -82,3 +82,16 @@ ul {
     background: var(--green-hover);
   }
 }
+
+.badge {
+  padding: 12px 18px;
+  border-radius: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
+
+  background: var(--badges);
+}
