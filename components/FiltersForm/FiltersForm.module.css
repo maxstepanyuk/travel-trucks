@@ -114,3 +114,21 @@
   /* border: 6px solid var(--text); */
   /* } */
 }
+
+/* actions */
+
+.actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.buttonSearch {
+  width: 100%;
+}
+
+.buttonClear {
+  width: 100%;
+}

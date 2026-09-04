@@ -6,6 +6,7 @@ import { useId } from "react";
 import css from "./FiltersForm.module.css";
 import { formatLabelText } from "@/lib/util";
 import { FiltersResponse } from "@/types/filters";
+import clsx from "clsx";
 
 // to render create form
 // todo: get from api
@@ -66,11 +67,13 @@ export default function FiltersForm() {
 
                 <div className={css.locationInputAndSvgWrapper}>
                   <Field
+                    placeholder="City"
                     className={css.locationInput}
                     type="text"
                     name="location"
                     id={`${fieldId}-location`}
                   />
+                  {/* todo: change svg (color) if length > 0*/}
                   <svg className={css.locationInputIcon} width={20} height={20}>
                     <use href="/sprite.svg#location" />
                   </svg>
@@ -135,13 +138,24 @@ export default function FiltersForm() {
               </div>
             </div>
 
-            <div className="actions">
-              <button type="submit">Search</button>
+            <div className={css.actions}>
+              <button
+                className={clsx(css.buttonSearch, "buttonSolid")}
+                type="submit"
+              >
+                Search
+              </button>
 
-              <button type="button" onClick={() => resetForm()}>
-                <svg width={12} height={12}>
-                  <use href="/sprite.svg#close" />
-                </svg>
+              <button
+                className={clsx(css.buttonClear, "buttonClear")}
+                type="button"
+                onClick={() => resetForm()}
+              >
+                <div className="buttonClearIconWrapper">
+                  <svg width={12} height={12}>
+                    <use href="/sprite.svg#close" />
+                  </svg>
+                </div>
                 Clear filters
               </button>
             </div>
