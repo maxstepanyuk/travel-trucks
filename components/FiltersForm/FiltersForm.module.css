@@ -47,6 +47,8 @@
   outline: none;
   background: var(--white);
   color: var(--main);
+
+  /* todo? add hover focus */
 }
 
 .locationInputIcon {
@@ -97,6 +99,7 @@
 .radioLabel {
   display: flex;
   gap: 8px;
+  cursor: pointer;
 }
 
 /* note: chrome on windows - as in the desing BUT firefox on windows - different */
