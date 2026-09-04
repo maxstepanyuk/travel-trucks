@@ -4,6 +4,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useId } from "react";
 
 import css from "./FiltersForm.module.css";
+import { formatLabelText } from "@/lib/util";
 
 // to render create form
 // todo: mv to types.ts
@@ -32,17 +33,6 @@ const initialFiltersFormValues: FiltersFormValues = {
   transmission: "",
   engine: "",
 };
-
-// todo: mv to util.ts
-function toFirstUpperLetter(label: string): string {
-  return label.charAt(0).toUpperCase() + label.substring(1).toLocaleLowerCase();
-}
-function formatLabelText(label: string): string {
-  return label
-    .split("_")
-    .map((word) => toFirstUpperLetter(word))
-    .join(" ");
-}
 
 export default function FiltersForm() {
   const fieldId = useId(); // todo: use for every input and fieldset
