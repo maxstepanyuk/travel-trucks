@@ -29,7 +29,7 @@ export interface GetCampersResponse {
 
 export async function getCampers({
   page = 1,
-  perPage = 5,
+  perPage = 4,
   location,
   form,
   transmission,
