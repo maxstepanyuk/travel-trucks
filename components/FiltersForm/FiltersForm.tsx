@@ -5,14 +5,9 @@ import { useId } from "react";
 
 import css from "./FiltersForm.module.css";
 import { formatLabelText } from "@/lib/util";
+import { FiltersResponse } from "@/types/filters";
 
 // to render create form
-// todo: mv to types.ts
-interface FiltersResponse {
-  forms: string[];
-  transmissions: string[];
-  engines: string[];
-}
 // todo: get from api
 const filtersResponse: FiltersResponse = {
   forms: ["alcove", "panel_van", "integrated", "semi_integrated"],
