@@ -54,49 +54,85 @@ export default function FiltersForm() {
     >
       {({ resetForm }) => {
         return (
-          <Form
-            className="form"
-            style={{ outline: "1px solid grey", padding: "6px" }}
-          >
-            <div className="location">
-              <label htmlFor={`${fieldId}-location`}>Location</label>
-              <Field type="text" name="location" id={`${fieldId}-location`} />
-              <svg width={20} height={20}>
-                <use href="/sprite.svg#location" />
-              </svg>
-            </div>
+          <Form className={css.form}>
+            <div className={css.inputs}>
+              <div className={css.location}>
+                <label
+                  className={css.locationLabel}
+                  htmlFor={`${fieldId}-location`}
+                >
+                  Location
+                </label>
 
-            <div>
-              <h3>Filters</h3>
-              <fieldset className={css.fieldset}>
-                <legend className={css.legend}>Camper form</legend>
-                {filtersResponse.forms.map((item) => (
-                  <label key={item} className={css.option}>
-                    <Field type="radio" name="form" value={item} />
-                    {formatLabelText(item)}
-                  </label>
-                ))}
-              </fieldset>
+                <div className={css.locationInputAndSvgWrapper}>
+                  <Field
+                    className={css.locationInput}
+                    type="text"
+                    name="location"
+                    id={`${fieldId}-location`}
+                  />
+                  <svg className={css.locationInputIcon} width={20} height={20}>
+                    <use href="/sprite.svg#location" />
+                  </svg>
+                </div>
+              </div>
 
-              <fieldset className={css.fieldset}>
-                <legend className={css.legend}>Engine</legend>
-                {filtersResponse.engines.map((item) => (
-                  <label key={item} className={css.option}>
-                    <Field type="radio" name="engine" value={item} />
-                    {formatLabelText(item)}
-                  </label>
-                ))}
-              </fieldset>
+              <div className={css.filters}>
+                <h2 className={css.filtersTitle}>Filters</h2>
 
-              <fieldset className={css.fieldset}>
-                <legend className={css.legend}>Transmission</legend>
-                {filtersResponse.transmissions.map((item) => (
-                  <label key={item} className={css.option}>
-                    <Field type="radio" name="transmission" value={item} />
-                    {formatLabelText(item)}
-                  </label>
-                ))}
-              </fieldset>
+                <div className={css.fieldsetsWrapper}>
+                  <fieldset className={css.fieldset}>
+                    <legend className={css.legend}>Camper form</legend>
+                    <div className={css.radioList}>
+                      {filtersResponse.forms.map((item) => (
+                        <label key={item} className={css.radioLabel}>
+                          <Field
+                            className={css.radioInput}
+                            type="radio"
+                            name="form"
+                            value={item}
+                          />
+                          {formatLabelText(item)}
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+
+                  <fieldset className={css.fieldset}>
+                    <legend className={css.legend}>Engine</legend>
+                    <div className={css.radioList}>
+                      {filtersResponse.engines.map((item) => (
+                        <label key={item} className={css.radioLabel}>
+                          <Field
+                            className={css.radioInput}
+                            type="radio"
+                            name="engine"
+                            value={item}
+                          />
+                          {formatLabelText(item)}
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+
+                  <fieldset className={css.fieldset}>
+                    <legend className={css.legend}>Transmission</legend>
+                    <div className={css.radioList}>
+                      {filtersResponse.transmissions.map((item) => (
+                        <label key={item} className={css.radioLabel}>
+                          <Field
+                            className={css.radioInput}
+                            type="radio"
+                            name="transmission"
+                            value={item}
+                          />
+                          {formatLabelText(item)}
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
             </div>
 
             <div className="actions">

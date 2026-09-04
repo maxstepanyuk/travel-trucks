@@ -1,0 +1,159 @@
+/* todo: cleanup */
+
+.form {
+  border-radius: 20px;
+  padding: 24px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 48px;
+
+  background: var(--inputs);
+}
+
+.inputs {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* location input */
+
+.location {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.locationLabel {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+
+  /* line-height: 24px; */
+  line-height: 1.5;
+  color: var(--gray);
+}
+
+.locationInputAndSvgWrapper {
+  position: relative;
+}
+
+.locationInput {
+  width: 312px;
+  height: 56px;
+
+  padding: 16px 20px 16px 48px;
+
+  border-radius: 12px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+
+  background: var(--white);
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+
+  /* line-height: 24px; */
+  line-height: 1.5;
+  color: var(--main);
+}
+
+.locationInputIcon {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* radios */
+
+.filters {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.filtersTitle {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 20px;
+
+  /* line-height: 24px; */
+  line-height: 1.2;
+  color: var(--main);
+}
+
+.fieldsetsWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fieldset {
+  border: none;
+
+  /* flex does not work? */
+  /* display: flex; */
+  /* align-items: flex-start; */
+  /* justify-content: flex-start; */
+  /* flex-direction: column; */
+  /* gap: 8px; */
+}
+
+.legend {
+  margin-bottom: 8px;
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+
+  /* line-height: 24px; */
+  line-height: 1.5;
+  color: var(--gray);
+}
+
+.radioList {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radioLabel {
+  display: flex;
+  gap: 8px;
+}
+
+/* note: chrome on windows - as in the desing BUT firefox on windows - different */
+/* todo? for truly custom use ::before OR hide and display element. svg */
+.radioInput {
+  width: 24px;
+  height: 24px;
+  accent-color: var(--text);
+
+  /* different way */
+  /* appearance: none; */
+  /* border-radius: 50%; */
+  /* border: 1px solid var(--text); */
+  /* &:checked { */
+  /* border: 6px solid var(--text); */
+  /* } */
+}
