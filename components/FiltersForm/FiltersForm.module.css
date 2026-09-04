@@ -1,0 +1,135 @@
+.form {
+  max-width: 360px;
+  border-radius: 20px;
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+
+  background: var(--inputs);
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* location input */
+
+.location {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.locationLabel {
+  color: var(--gray);
+}
+
+.locationInputAndSvgWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.locationInput {
+  width: 100%;
+  height: 56px;
+  border: none;
+
+  border-radius: 12px;
+  padding: 12px 18px 12px 48px;
+
+  outline: none;
+  background: var(--white);
+  color: var(--main);
+
+  /* todo? add hover focus */
+}
+
+.locationInputIcon {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* radios */
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.filtersTitle {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  color: var(--main);
+}
+
+.fieldsetsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fieldset {
+  border: none;
+}
+
+.legend {
+  margin-bottom: 8px;
+  color: var(--gray);
+}
+
+.radioList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radioLabel {
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* note: chrome on windows - as in the desing BUT firefox on windows - different */
+/* todo? for truly custom use ::before OR hide and display element. svg */
+.radioInput {
+  width: 24px;
+  height: 24px;
+  accent-color: var(--text);
+
+  /* different way */
+  /* appearance: none; */
+  /* border-radius: 50%; */
+  /* border: 1px solid var(--text); */
+  /* &:checked { */
+  /* border: 6px solid var(--text); */
+  /* } */
+}
+
+/* actions */
+
+.actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.buttonSearch {
+  width: 100%;
+}
+
+.buttonClear {
+  width: 100%;
+}

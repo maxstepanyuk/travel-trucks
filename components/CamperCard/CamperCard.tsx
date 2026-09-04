@@ -38,7 +38,6 @@ export default function CamperCard() {
           </div>
         </div>
 
-        {/* todo now */}
         <p className={css.description}>
           Embrace simplicity and freedom with the Mavericks panel truck... Lorem
           ipsum dolor sit amet consectetur adipisicing elit.
