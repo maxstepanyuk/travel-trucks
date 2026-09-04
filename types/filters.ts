@@ -1,5 +1,7 @@
+import { CamperEngine, CamperForm, CamperTransmission } from "./camper";
+
 export interface FiltersResponse {
-  forms: string[];
-  transmissions: string[];
-  engines: string[];
+  forms: CamperForm[];
+  transmissions: CamperTransmission[];
+  engines: CamperEngine[];
 }
