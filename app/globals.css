@@ -17,10 +17,6 @@
   --green-hover: #6d7b75;
 }
 
-html {
-  height: 100%;
-}
-
 html,
 body {
   max-width: 100vw;
