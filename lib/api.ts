@@ -1,4 +1,5 @@
 import {
+  CamperDetailsEntity,
   CamperEngine,
   CamperForm,
   CamperListItemDto,
@@ -45,5 +46,10 @@ export async function getCampers({
       engine,
     },
   });
+  return res.data;
+}
+
+export async function getCamperById(id: string): Promise<CamperDetailsEntity> {
+  const res = await campersApi.get<CamperDetailsEntity>("/campers/" + id);
   return res.data;
 }
