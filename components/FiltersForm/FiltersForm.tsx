@@ -1,7 +1,6 @@
 "use client";
 
-import { Field, Form, Formik, FormikHelpers } from "formik";
-import { useId } from "react";
+import { useId, useState } from "react";
 
 import css from "./FiltersForm.module.css";
 import { formatLabelText } from "@/lib/util";
@@ -31,139 +30,137 @@ export default function FiltersForm() {
   const clearFilters = useFiltersFormValuesStore((store) => store.clearFilters);
   const setFilters = useFiltersFormValuesStore((store) => store.setFilters);
 
-  function handleSubmit(
-    values: FiltersFormValues,
-    actions: FormikHelpers<FiltersFormValues>,
-  ) {
+  const [values, setValues] = useState<FiltersFormValues>(
+    initialFiltersFormValues,
+  );
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setValues((prev) => ({ ...prev, [name]: value }));
+  }
+
+  function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+    e.preventDefault();
+
     const setEntries = Object.entries(values).filter(
-      (entry) => entry[1].length > 0,
+      (entry) => (entry[1] as string).length > 0,
     );
     const usedFilters = Object.fromEntries(setEntries);
     setFilters(usedFilters);
   }
 
-  function handleFormReset(
-    values: FiltersFormValues,
-    actions: FormikHelpers<FiltersFormValues>,
-  ) {
+  function handleReset() {
+    setValues(initialFiltersFormValues);
     clearFilters();
   }
 
   return (
-    <Formik
-      initialValues={initialFiltersFormValues}
-      onSubmit={handleSubmit}
-      onReset={handleFormReset} // todo: (use?) to auto submit after reset?
-    >
-      {({ resetForm }) => {
-        return (
-          <Form className={css.form}>
-            <div className={css.inputs}>
-              <div className={css.location}>
-                <label
-                  className={css.locationLabel}
-                  htmlFor={`${fieldId}-location`}
-                >
-                  Location
-                </label>
+    <form className={css.form} onSubmit={handleSubmit}>
+      <div className={css.inputs}>
+        <div className={css.location}>
+          <label className={css.locationLabel} htmlFor={`${fieldId}-location`}>
+            Location
+          </label>
 
-                <div className={css.locationInputAndSvgWrapper}>
-                  <Field
-                    placeholder="City"
-                    className={css.locationInput}
-                    type="text"
-                    name="location"
-                    id={`${fieldId}-location`}
-                  />
-                  {/* todo: change svg (color) if length > 0*/}
-                  <svg className={css.locationInputIcon} width={20} height={20}>
-                    <use href="/sprite.svg#location" />
-                  </svg>
-                </div>
+          <div className={css.locationInputAndSvgWrapper}>
+            <input
+              placeholder="City"
+              className={css.locationInput}
+              type="text"
+              name="location"
+              id={`${fieldId}-location`}
+              value={values.location}
+              onChange={handleChange}
+            />
+            {/* todo: change svg (color) if length > 0*/}
+            <svg className={css.locationInputIcon} width={20} height={20}>
+              <use href="/sprite.svg#location" />
+            </svg>
+          </div>
+        </div>
+
+        <div className={css.filters}>
+          <h2 className={css.filtersTitle}>Filters</h2>
+
+          <div className={css.fieldsetsWrapper}>
+            <fieldset className={css.fieldset}>
+              <legend className={css.legend}>Camper form</legend>
+              <div className={css.radioList}>
+                {filtersResponse.forms.map((item) => (
+                  <label key={item} className={css.radioLabel}>
+                    <input
+                      className={css.radioInput}
+                      type="radio"
+                      name="form"
+                      value={item}
+                      checked={values.form === item}
+                      onChange={handleChange}
+                    />
+                    {formatLabelText(item)}
+                  </label>
+                ))}
               </div>
+            </fieldset>
 
-              <div className={css.filters}>
-                <h2 className={css.filtersTitle}>Filters</h2>
-
-                <div className={css.fieldsetsWrapper}>
-                  <fieldset className={css.fieldset}>
-                    <legend className={css.legend}>Camper form</legend>
-                    <div className={css.radioList}>
-                      {filtersResponse.forms.map((item) => (
-                        <label key={item} className={css.radioLabel}>
-                          <Field
-                            className={css.radioInput}
-                            type="radio"
-                            name="form"
-                            value={item}
-                          />
-                          {formatLabelText(item)}
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  <fieldset className={css.fieldset}>
-                    <legend className={css.legend}>Engine</legend>
-                    <div className={css.radioList}>
-                      {filtersResponse.engines.map((item) => (
-                        <label key={item} className={css.radioLabel}>
-                          <Field
-                            className={css.radioInput}
-                            type="radio"
-                            name="engine"
-                            value={item}
-                          />
-                          {formatLabelText(item)}
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  <fieldset className={css.fieldset}>
-                    <legend className={css.legend}>Transmission</legend>
-                    <div className={css.radioList}>
-                      {filtersResponse.transmissions.map((item) => (
-                        <label key={item} className={css.radioLabel}>
-                          <Field
-                            className={css.radioInput}
-                            type="radio"
-                            name="transmission"
-                            value={item}
-                          />
-                          {formatLabelText(item)}
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-                </div>
+            <fieldset className={css.fieldset}>
+              <legend className={css.legend}>Engine</legend>
+              <div className={css.radioList}>
+                {filtersResponse.engines.map((item) => (
+                  <label key={item} className={css.radioLabel}>
+                    <input
+                      className={css.radioInput}
+                      type="radio"
+                      name="engine"
+                      value={item}
+                      checked={values.engine === item}
+                      onChange={handleChange}
+                    />
+                    {formatLabelText(item)}
+                  </label>
+                ))}
               </div>
-            </div>
+            </fieldset>
 
-            <div className={css.actions}>
-              <button
-                className={clsx(css.buttonSearch, "buttonSolid")}
-                type="submit"
-              >
-                Search
-              </button>
+            <fieldset className={css.fieldset}>
+              <legend className={css.legend}>Transmission</legend>
+              <div className={css.radioList}>
+                {filtersResponse.transmissions.map((item) => (
+                  <label key={item} className={css.radioLabel}>
+                    <input
+                      className={css.radioInput}
+                      type="radio"
+                      name="transmission"
+                      value={item}
+                      checked={values.transmission === item}
+                      onChange={handleChange}
+                    />
+                    {formatLabelText(item)}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
 
-              <button
-                className={clsx(css.buttonClear, "buttonClear")}
-                type="button"
-                onClick={() => resetForm()}
-              >
-                <div className="buttonClearIconWrapper">
-                  <svg width={12} height={12}>
-                    <use href="/sprite.svg#close" />
-                  </svg>
-                </div>
-                Clear filters
-              </button>
-            </div>
-          </Form>
-        );
-      }}
-    </Formik>
+      <div className={css.actions}>
+        <button className={clsx(css.buttonSearch, "buttonSolid")} type="submit">
+          Search
+        </button>
+
+        <button
+          className={clsx(css.buttonClear, "buttonClear")}
+          type="button"
+          onClick={handleReset}
+        >
+          <div className="buttonClearIconWrapper">
+            <svg width={12} height={12}>
+              <use href="/sprite.svg#close" />
+            </svg>
+          </div>
+          Clear filters
+        </button>
+      </div>
+    </form>
   );
 }
