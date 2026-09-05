@@ -7,18 +7,18 @@ interface FiltersFormValuesStore {
   clearCatalogFilters: () => void;
 }
 
-const initialFiltersFormValues: FiltersFormValues = {};
+const initialCatalogFilters: FiltersFormValues = {};
 
 export const useFiltersFormValuesStore = create<FiltersFormValuesStore>()((
   set,
 ) => {
   return {
-    catalogFilters: initialFiltersFormValues,
+    catalogFilters: initialCatalogFilters,
     setCatalogFilters: (newCatalogFilters) => {
       set({ catalogFilters: newCatalogFilters });
     },
     clearCatalogFilters: () => {
-      set({ catalogFilters: initialFiltersFormValues });
+      set({ catalogFilters: initialCatalogFilters });
     },
   };
 });
