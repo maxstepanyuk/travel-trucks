@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useId } from "react";
 
 import css from "./FiltersForm.module.css";
 import { formatLabelText } from "@/lib/util";
@@ -16,33 +16,33 @@ const filtersResponse: FiltersResponse = {
   engines: ["diesel", "petrol", "hybrid", "electric"],
 };
 
-// to set form
-const initialFiltersFormValues: FiltersFormValues = {
-  location: "",
-  form: "",
-  transmission: "",
-  engine: "",
-};
-
 export default function FiltersForm() {
   const fieldId = useId(); // todo: use for every input and fieldset
 
-  const clearCatalogFilters = useFiltersFormValuesStore((store) => store.clearCatalogFilters);
-  const setCatalogFilters = useFiltersFormValuesStore((store) => store.setCatalogFilters);
+  const clearCatalogFilters = useFiltersFormValuesStore(
+    (store) => store.clearCatalogFilters,
+  );
+  const setCatalogFilters = useFiltersFormValuesStore(
+    (store) => store.setCatalogFilters,
+  );
 
-  const [values, setValues] = useState<FiltersFormValues>(
-    initialFiltersFormValues,
+  const formFilters = useFiltersFormValuesStore((store) => store.formFilters);
+  const setFormFilters = useFiltersFormValuesStore(
+    (store) => store.setFormFilters,
+  );
+  const clearFormFilters = useFiltersFormValuesStore(
+    (store) => store.clearFormFilters,
   );
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
+    setFormFilters({ ...formFilters, [name]: value });
   }
 
   function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const setEntries = Object.entries(values).filter(
+    const setEntries = Object.entries(formFilters).filter(
       (entry) => (entry[1] as string).length > 0,
     );
     const usedFilters = Object.fromEntries(setEntries);
@@ -50,7 +50,7 @@ export default function FiltersForm() {
   }
 
   function handleReset() {
-    setValues(initialFiltersFormValues);
+    clearFormFilters();
     clearCatalogFilters();
   }
 
@@ -69,7 +69,7 @@ export default function FiltersForm() {
               type="text"
               name="location"
               id={`${fieldId}-location`}
-              value={values.location}
+              value={formFilters.location}
               onChange={handleChange}
             />
             {/* todo: change svg (color) if length > 0*/}
@@ -93,7 +93,7 @@ export default function FiltersForm() {
                       type="radio"
                       name="form"
                       value={item}
-                      checked={values.form === item}
+                      checked={formFilters.form === item}
                       onChange={handleChange}
                     />
                     {formatLabelText(item)}
@@ -112,7 +112,7 @@ export default function FiltersForm() {
                       type="radio"
                       name="engine"
                       value={item}
-                      checked={values.engine === item}
+                      checked={formFilters.engine === item}
                       onChange={handleChange}
                     />
                     {formatLabelText(item)}
@@ -131,7 +131,7 @@ export default function FiltersForm() {
                       type="radio"
                       name="transmission"
                       value={item}
-                      checked={values.transmission === item}
+                      checked={formFilters.transmission === item}
                       onChange={handleChange}
                     />
                     {formatLabelText(item)}
