@@ -5,7 +5,7 @@ import { useId } from "react";
 
 import css from "./FiltersForm.module.css";
 import { formatLabelText } from "@/lib/util";
-import { FiltersResponse } from "@/types/filters";
+import { FiltersFormValues, FiltersResponse } from "@/types/filters";
 import clsx from "clsx";
 
 // to render create form
@@ -17,12 +17,6 @@ const filtersResponse: FiltersResponse = {
 };
 
 // to set form
-interface FiltersFormValues {
-  location: string;
-  form: string;
-  transmission: string;
-  engine: string;
-}
 const initialFiltersFormValues: FiltersFormValues = {
   location: "",
   form: "",

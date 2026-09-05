@@ -5,3 +5,10 @@ export interface FiltersResponse {
   transmissions: CamperTransmission[];
   engines: CamperEngine[];
 }
+
+export interface FiltersFormValues {
+  location: string;
+  form: string;
+  transmission: string;
+  engine: string;
+}
