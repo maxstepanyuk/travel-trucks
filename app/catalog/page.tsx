@@ -17,6 +17,9 @@ export default function Catalog() {
   const clearCatalogFilters = useFiltersFormValuesStore(
     (store) => store.clearCatalogFilters,
   );
+  const clearFormFilters = useFiltersFormValuesStore(
+    (store) => store.clearFormFilters,
+  );
 
   const { data, fetchNextPage, hasNextPage, isFetching, isFetched, isError } =
     useInfiniteQuery({
@@ -50,10 +53,14 @@ export default function Catalog() {
         </aside>
         <div className={css.campersListWrapper}>
           {showNoResults && (
-            // todo mv to non anon function and add logis as needed
             <CatalogNotFound
-              onClearFilters={() => clearCatalogFilters()}
-              onViewAllCampers={() => clearCatalogFilters()}
+              onClearFilters={() => {
+                clearFormFilters();
+                clearCatalogFilters();
+              }}
+              onViewAllCampers={() => {
+                clearCatalogFilters();
+              }}
             />
           )}
           {hasArticles && (
