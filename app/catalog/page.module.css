@@ -1,0 +1,23 @@
+.section {
+  padding: 48px 0px;
+  display: flex;
+  gap: 65px;
+}
+
+.campersListWrapper {
+  display: flex;
+  gap: 40px;
+  flex-direction: column;
+  align-items: center
+}
+
+.campersList {
+  display: flex;
+  gap: 32px;
+  flex-direction: column;
+}
+
+.loadMoreButton {
+  width: 145px;
+  height: 56px;
+}

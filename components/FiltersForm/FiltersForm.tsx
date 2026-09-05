@@ -5,8 +5,9 @@ import { useId } from "react";
 
 import css from "./FiltersForm.module.css";
 import { formatLabelText } from "@/lib/util";
-import { FiltersResponse } from "@/types/filters";
+import { FiltersFormValues, FiltersResponse } from "@/types/filters";
 import clsx from "clsx";
+import { useFiltersFormValuesStore } from "@/lib/store/filtersStore";
 
 // to render create form
 // todo: get from api
@@ -17,12 +18,6 @@ const filtersResponse: FiltersResponse = {
 };
 
 // to set form
-interface FiltersFormValues {
-  location: string;
-  form: string;
-  transmission: string;
-  engine: string;
-}
 const initialFiltersFormValues: FiltersFormValues = {
   location: "",
   form: "",
@@ -33,18 +28,25 @@ const initialFiltersFormValues: FiltersFormValues = {
 export default function FiltersForm() {
   const fieldId = useId(); // todo: use for every input and fieldset
 
+  const clearFilters = useFiltersFormValuesStore((store) => store.clearFilters);
+  const setFilters = useFiltersFormValuesStore((store) => store.setFilters);
+
   function handleSubmit(
     values: FiltersFormValues,
     actions: FormikHelpers<FiltersFormValues>,
   ) {
-    console.log("filrets SUBMIT:", values);
+    const setEntries = Object.entries(values).filter(
+      (entry) => entry[1].length > 0,
+    );
+    const usedFilters = Object.fromEntries(setEntries);
+    setFilters(usedFilters);
   }
 
   function handleFormReset(
     values: FiltersFormValues,
     actions: FormikHelpers<FiltersFormValues>,
   ) {
-    console.log("filrets RESET:", values);
+    clearFilters();
   }
 
   return (

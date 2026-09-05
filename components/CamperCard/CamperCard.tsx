@@ -2,13 +2,20 @@ import Image from "next/image";
 import css from "./CamperCard.module.css";
 import clsx from "clsx";
 import Link from "next/link";
+import { CamperListItemDto } from "@/types/camper";
 
-export default function CamperCard() {
+interface CamperCardProps {
+  camper: CamperListItemDto;
+}
+
+export default function CamperCard({ camper }: CamperCardProps) {
+  const reviewsSummary = camper.rating + "(" + camper.totalReviews + ")";
+
   return (
     <div className={css.card}>
       <Image
-        src="https://ac.goit.global/fullstack/career/campers/cruise-america-c-21/cruise-america-c-21-1.jpg"
-        alt="The Canyon Alcove 21 ..."
+        src={camper.coverImage}
+        alt={camper.description}
         width="219"
         height="240"
         className={css.image}
@@ -17,8 +24,8 @@ export default function CamperCard() {
       <div className={css.info}>
         <div className={css.textContainer}>
           <div className={css.title}>
-            <h2 className={css.name}>Mavericks</h2>
-            <p className={css.price}>€8000</p>
+            <h2 className={css.name}>{camper.name}</h2>
+            <p className={css.price}>€{camper.price}</p>
           </div>
           <div className={css.details}>
             {/* todo: make icons using ::before ? */}
@@ -26,44 +33,44 @@ export default function CamperCard() {
               <svg width="16" height="16">
                 <use href={"/sprite.svg#rating-star"} />
               </svg>
-              <p className={css.reviewsSummary}>4.4(2 Reviews)</p>
+              <p className={css.reviewsSummary}>{reviewsSummary}</p>
             </div>
 
             <div className={css.location}>
               <svg width="16" height="16">
                 <use href={"/sprite.svg#location"} />
               </svg>
-              <p className={css.locationName}>Kyiv, Ukraine</p>
+              <p className={css.locationName}>{camper.location}</p>
             </div>
           </div>
         </div>
 
-        <p className={css.description}>
-          Embrace simplicity and freedom with the Mavericks panel truck... Lorem
-          ipsum dolor sit amet consectetur adipisicing elit.
-        </p>
+        <p className={css.description}>{camper.description}</p>
 
         <ul className={css.badgesList}>
           <li className={clsx(css.badgeItem, "badge")}>
             <svg width="20" height="20" fill="ff0000">
               <use href={"/sprite.svg#badge-engine-fuel"} />
             </svg>
-            <p className={css.badgeText}>Petrol</p>
+            <p className={css.badgeText}>{camper.engine}</p>
           </li>
           <li className={clsx(css.badgeItem, "badge")}>
             <svg width="20" height="20" fill="ff0000">
               <use href={"/sprite.svg#badge-transmission"} />
             </svg>
-            <p className={css.badgeText}>Automatic</p>
+            <p className={css.badgeText}>{camper.transmission}</p>
           </li>
           <li className={clsx(css.badgeItem, "badge")}>
             <svg width="20" height="20" fill="ff0000">
               <use href={"/sprite.svg#badge-form"} />
             </svg>
-            <p className={css.badgeText}>Alcove</p>
+            <p className={css.badgeText}>{camper.form}</p>
           </li>
         </ul>
-        <Link href="/catalog/1" className={clsx(css.link, "buttonSolid")}>
+        <Link
+          href={"/catalog/" + camper.id}
+          className={clsx(css.link, "buttonSolid")}
+        >
           Show more
         </Link>
       </div>

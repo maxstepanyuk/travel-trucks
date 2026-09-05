@@ -5,6 +5,7 @@ import "modern-normalize/modern-normalize.css";
 import "./globals.css";
 
 import Heder from "@/components/Header/Header";
+import TanStackProvider from "@/components/providers/TanStackProvider/TanStackProvider";
 
 const inter = Inter({
   variable: "--font-family", // todo: rename
@@ -28,8 +29,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
       <body>
-        <Heder />
-        {children}
+        <TanStackProvider>
+          <Heder />
+          {children}
+        </TanStackProvider>
       </body>
     </html>
   );
