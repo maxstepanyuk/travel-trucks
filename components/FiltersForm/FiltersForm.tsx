@@ -7,6 +7,7 @@ import css from "./FiltersForm.module.css";
 import { formatLabelText } from "@/lib/util";
 import { FiltersFormValues, FiltersResponse } from "@/types/filters";
 import clsx from "clsx";
+import { useFiltersFormValuesStore } from "@/lib/store/filtersStore";
 
 // to render create form
 // todo: get from api
@@ -27,18 +28,21 @@ const initialFiltersFormValues: FiltersFormValues = {
 export default function FiltersForm() {
   const fieldId = useId(); // todo: use for every input and fieldset
 
+  const clearFilters = useFiltersFormValuesStore((store) => store.clearFilters);
+  const setFilters = useFiltersFormValuesStore((store) => store.setFilters);
+
   function handleSubmit(
     values: FiltersFormValues,
     actions: FormikHelpers<FiltersFormValues>,
   ) {
-    console.log("filrets SUBMIT:", values);
+    setFilters(values);
   }
 
   function handleFormReset(
     values: FiltersFormValues,
     actions: FormikHelpers<FiltersFormValues>,
   ) {
-    console.log("filrets RESET:", values);
+    clearFilters();
   }
 
   return (
