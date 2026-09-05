@@ -1,13 +1,12 @@
 "use client";
 
-import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useId } from "react";
 
 import css from "./FiltersForm.module.css";
 import { formatLabelText } from "@/lib/util";
 import { FiltersFormValues, FiltersResponse } from "@/types/filters";
 import clsx from "clsx";
-import { useFiltersFormValuesStore } from "@/lib/store/filtersStore";
+import { useFiltersStore } from "@/lib/store/filtersStore";
 
 // to render create form
 // todo: get from api
@@ -17,153 +16,145 @@ const filtersResponse: FiltersResponse = {
   engines: ["diesel", "petrol", "hybrid", "electric"],
 };
 
-// to set form
-const initialFiltersFormValues: FiltersFormValues = {
-  location: "",
-  form: "",
-  transmission: "",
-  engine: "",
-};
-
 export default function FiltersForm() {
   const fieldId = useId(); // todo: use for every input and fieldset
 
-  const clearFilters = useFiltersFormValuesStore((store) => store.clearFilters);
-  const setFilters = useFiltersFormValuesStore((store) => store.setFilters);
+  const clearCatalogFilters = useFiltersStore(
+    (store) => store.clearCatalogFilters,
+  );
+  const setCatalogFilters = useFiltersStore((store) => store.setCatalogFilters);
 
-  function handleSubmit(
-    values: FiltersFormValues,
-    actions: FormikHelpers<FiltersFormValues>,
-  ) {
-    const setEntries = Object.entries(values).filter(
-      (entry) => entry[1].length > 0,
-    );
-    const usedFilters = Object.fromEntries(setEntries);
-    setFilters(usedFilters);
+  const formFilters = useFiltersStore((store) => store.formFilters);
+  const setFormFilters = useFiltersStore((store) => store.setFormFilters);
+  const clearFormFilters = useFiltersStore((store) => store.clearFormFilters);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target;
+    setFormFilters({ ...formFilters, [name]: value });
   }
 
-  function handleFormReset(
-    values: FiltersFormValues,
-    actions: FormikHelpers<FiltersFormValues>,
-  ) {
-    clearFilters();
+  function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const setEntries = Object.entries(formFilters).filter(
+      (entry) => (entry[1] as string).length > 0,
+    );
+    const usedFilters = Object.fromEntries(setEntries);
+    setCatalogFilters(usedFilters);
+  }
+
+  function handleReset() {
+    clearFormFilters();
+    clearCatalogFilters();
   }
 
   return (
-    <Formik
-      initialValues={initialFiltersFormValues}
-      onSubmit={handleSubmit}
-      onReset={handleFormReset} // todo: (use?) to auto submit after reset?
-    >
-      {({ resetForm }) => {
-        return (
-          <Form className={css.form}>
-            <div className={css.inputs}>
-              <div className={css.location}>
-                <label
-                  className={css.locationLabel}
-                  htmlFor={`${fieldId}-location`}
-                >
-                  Location
-                </label>
+    <form className={css.form} onSubmit={handleSubmit}>
+      <div className={css.inputs}>
+        <div className={css.location}>
+          <label className={css.locationLabel} htmlFor={`${fieldId}-location`}>
+            Location
+          </label>
 
-                <div className={css.locationInputAndSvgWrapper}>
-                  <Field
-                    placeholder="City"
-                    className={css.locationInput}
-                    type="text"
-                    name="location"
-                    id={`${fieldId}-location`}
-                  />
-                  {/* todo: change svg (color) if length > 0*/}
-                  <svg className={css.locationInputIcon} width={20} height={20}>
-                    <use href="/sprite.svg#location" />
-                  </svg>
-                </div>
+          <div className={css.locationInputAndSvgWrapper}>
+            <input
+              placeholder="City"
+              className={css.locationInput}
+              type="text"
+              name="location"
+              id={`${fieldId}-location`}
+              value={formFilters.location}
+              onChange={handleChange}
+            />
+            {/* todo: change svg (color) if length > 0*/}
+            <svg className={css.locationInputIcon} width={20} height={20}>
+              <use href="/sprite.svg#location" />
+            </svg>
+          </div>
+        </div>
+
+        <div className={css.filters}>
+          <h2 className={css.filtersTitle}>Filters</h2>
+
+          <div className={css.fieldsetsWrapper}>
+            <fieldset className={css.fieldset}>
+              <legend className={css.legend}>Camper form</legend>
+              <div className={css.radioList}>
+                {filtersResponse.forms.map((item) => (
+                  <label key={item} className={css.radioLabel}>
+                    <input
+                      className={css.radioInput}
+                      type="radio"
+                      name="form"
+                      value={item}
+                      checked={formFilters.form === item}
+                      onChange={handleChange}
+                    />
+                    {formatLabelText(item)}
+                  </label>
+                ))}
               </div>
+            </fieldset>
 
-              <div className={css.filters}>
-                <h2 className={css.filtersTitle}>Filters</h2>
-
-                <div className={css.fieldsetsWrapper}>
-                  <fieldset className={css.fieldset}>
-                    <legend className={css.legend}>Camper form</legend>
-                    <div className={css.radioList}>
-                      {filtersResponse.forms.map((item) => (
-                        <label key={item} className={css.radioLabel}>
-                          <Field
-                            className={css.radioInput}
-                            type="radio"
-                            name="form"
-                            value={item}
-                          />
-                          {formatLabelText(item)}
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  <fieldset className={css.fieldset}>
-                    <legend className={css.legend}>Engine</legend>
-                    <div className={css.radioList}>
-                      {filtersResponse.engines.map((item) => (
-                        <label key={item} className={css.radioLabel}>
-                          <Field
-                            className={css.radioInput}
-                            type="radio"
-                            name="engine"
-                            value={item}
-                          />
-                          {formatLabelText(item)}
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-
-                  <fieldset className={css.fieldset}>
-                    <legend className={css.legend}>Transmission</legend>
-                    <div className={css.radioList}>
-                      {filtersResponse.transmissions.map((item) => (
-                        <label key={item} className={css.radioLabel}>
-                          <Field
-                            className={css.radioInput}
-                            type="radio"
-                            name="transmission"
-                            value={item}
-                          />
-                          {formatLabelText(item)}
-                        </label>
-                      ))}
-                    </div>
-                  </fieldset>
-                </div>
+            <fieldset className={css.fieldset}>
+              <legend className={css.legend}>Engine</legend>
+              <div className={css.radioList}>
+                {filtersResponse.engines.map((item) => (
+                  <label key={item} className={css.radioLabel}>
+                    <input
+                      className={css.radioInput}
+                      type="radio"
+                      name="engine"
+                      value={item}
+                      checked={formFilters.engine === item}
+                      onChange={handleChange}
+                    />
+                    {formatLabelText(item)}
+                  </label>
+                ))}
               </div>
-            </div>
+            </fieldset>
 
-            <div className={css.actions}>
-              <button
-                className={clsx(css.buttonSearch, "buttonSolid")}
-                type="submit"
-              >
-                Search
-              </button>
+            <fieldset className={css.fieldset}>
+              <legend className={css.legend}>Transmission</legend>
+              <div className={css.radioList}>
+                {filtersResponse.transmissions.map((item) => (
+                  <label key={item} className={css.radioLabel}>
+                    <input
+                      className={css.radioInput}
+                      type="radio"
+                      name="transmission"
+                      value={item}
+                      checked={formFilters.transmission === item}
+                      onChange={handleChange}
+                    />
+                    {formatLabelText(item)}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
 
-              <button
-                className={clsx(css.buttonClear, "buttonClear")}
-                type="button"
-                onClick={() => resetForm()}
-              >
-                <div className="buttonClearIconWrapper">
-                  <svg width={12} height={12}>
-                    <use href="/sprite.svg#close" />
-                  </svg>
-                </div>
-                Clear filters
-              </button>
-            </div>
-          </Form>
-        );
-      }}
-    </Formik>
+      <div className={css.actions}>
+        <button className={clsx(css.buttonSearch, "buttonSolid")} type="submit">
+          Search
+        </button>
+
+        <button
+          className={clsx(css.buttonClear, "buttonClear")}
+          type="button"
+          onClick={handleReset}
+        >
+          <div className="buttonClearIconWrapper">
+            <svg width={12} height={12}>
+              <use href="/sprite.svg#close" />
+            </svg>
+          </div>
+          Clear filters
+        </button>
+      </div>
+    </form>
   );
 }

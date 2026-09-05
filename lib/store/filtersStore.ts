@@ -2,23 +2,42 @@ import { FiltersFormValues } from "@/types/filters";
 import { create } from "zustand";
 
 interface FiltersFormValuesStore {
-  filters: FiltersFormValues;
-  setFilters: (filters: FiltersFormValues) => void;
-  clearFilters: () => void;
+  catalogFilters: FiltersFormValues;
+  setCatalogFilters: (filters: FiltersFormValues) => void;
+  clearCatalogFilters: () => void;
+
+  formFilters: FiltersFormValues;
+  setFormFilters: (filters: FiltersFormValues) => void;
+  clearFormFilters: () => void;
 }
 
-const initialFiltersFormValues: FiltersFormValues = {};
+const initialCatalogFilters: FiltersFormValues = {};
 
-export const useFiltersFormValuesStore = create<FiltersFormValuesStore>()((
+const initialFormFilters: FiltersFormValues = {
+  engine: "",
+  form: "",
+  location: "",
+  transmission: "",
+};
+
+export const useFiltersStore = create<FiltersFormValuesStore>()((
   set,
 ) => {
   return {
-    filters: initialFiltersFormValues,
-    setFilters: (newFilters) => {
-      set({ filters: newFilters });
+    catalogFilters: initialCatalogFilters,
+    setCatalogFilters: (newCatalogFilters) => {
+      set({ catalogFilters: newCatalogFilters });
     },
-    clearFilters: () => {
-      set({ filters: initialFiltersFormValues });
+    clearCatalogFilters: () => {
+      set({ catalogFilters: initialCatalogFilters });
+    },
+
+    formFilters: initialFormFilters,
+    setFormFilters: (newFormFilters) => {
+      set({ formFilters: newFormFilters });
+    },
+    clearFormFilters: () => {
+      set({ formFilters: initialFormFilters });
     },
   };
 });

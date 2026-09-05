@@ -7,18 +7,21 @@ import { getCampers } from "@/lib/api";
 import css from "./page.module.css";
 import clsx from "clsx";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useFiltersFormValuesStore } from "@/lib/store/filtersStore";
+import { useFiltersStore } from "@/lib/store/filtersStore";
 import CatalogNotFound from "@/components/CatalogNotFound/CatalogNotFound";
 
 export default function Catalog() {
-  const filters = useFiltersFormValuesStore((store) => store.filters);
-  const clearFilters = useFiltersFormValuesStore((store) => store.clearFilters);
+  const catalogFilters = useFiltersStore((store) => store.catalogFilters);
+  const clearCatalogFilters = useFiltersStore(
+    (store) => store.clearCatalogFilters,
+  );
+  const clearFormFilters = useFiltersStore((store) => store.clearFormFilters);
 
   const { data, fetchNextPage, hasNextPage, isFetching, isFetched, isError } =
     useInfiniteQuery({
-      queryKey: ["campers", filters],
+      queryKey: ["campers", catalogFilters],
       queryFn: ({ pageParam }) => {
-        return getCampers({ page: pageParam, ...filters });
+        return getCampers({ page: pageParam, ...catalogFilters });
       },
       initialPageParam: 1,
       getNextPageParam: (lastResponse) => {
@@ -47,8 +50,13 @@ export default function Catalog() {
         <div className={css.campersListWrapper}>
           {showNoResults && (
             <CatalogNotFound
-              onClearFilters={clearFilters}
-              onViewAllCampers={clearFilters}
+              onClearFilters={() => {
+                clearFormFilters();
+                clearCatalogFilters();
+              }}
+              onViewAllCampers={() => {
+                clearCatalogFilters();
+              }}
             />
           )}
           {hasArticles && (
