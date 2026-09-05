@@ -1,6 +1,5 @@
 import { FiltersFormValues } from "@/types/filters";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 interface FiltersFormValuesStore {
   filters: FiltersFormValues;
@@ -15,24 +14,16 @@ const initialFiltersFormValues: FiltersFormValues = {
   engine: "",
 };
 
-export const useFiltersFormValuesStore = create<FiltersFormValuesStore>()(
-  persist(
-    (set) => {
-      return {
-        filters: initialFiltersFormValues,
-        setFilters: (newFilters) => {
-          set({ filters: newFilters });
-        },
-        clearFilters: () => {
-          set({ filters: initialFiltersFormValues });
-        },
-      };
+export const useFiltersFormValuesStore = create<FiltersFormValuesStore>()((
+  set
+) => {
+  return {
+    filters: initialFiltersFormValues,
+    setFilters: (newFilters) => {
+      set({ filters: newFilters });
     },
-    {
-      name: "filters",
-      partialize: (store) => {
-        return { filters: store.filters };
-      },
+    clearFilters: () => {
+      set({ filters: initialFiltersFormValues });
     },
-  ),
-);
+  };
+});
