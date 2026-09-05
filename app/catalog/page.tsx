@@ -8,6 +8,7 @@ import css from "./page.module.css";
 import clsx from "clsx";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useFiltersFormValuesStore } from "@/lib/store/filtersStore";
+import CatalogNotFound from "@/components/CatalogNotFound/CatalogNotFound";
 
 export default function Catalog() {
   const filters = useFiltersFormValuesStore((store) => store.filters);
@@ -43,7 +44,7 @@ export default function Catalog() {
           <FiltersForm />
         </aside>
         <div className={css.campersListWrapper}>
-          {showNoResults && <p>todo: not found</p>}
+          {showNoResults && <CatalogNotFound />}
           {hasArticles && (
             <ul className={css.campersList}>
               {data?.campers.map((camper) => (
