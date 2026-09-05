@@ -5,9 +5,20 @@ interface FiltersFormValuesStore {
   catalogFilters: FiltersFormValues;
   setCatalogFilters: (filters: FiltersFormValues) => void;
   clearCatalogFilters: () => void;
+
+  formFilters: FiltersFormValues;
+  setFormFilters: (filters: FiltersFormValues) => void;
+  clearFormFilters: () => void;
 }
 
 const initialCatalogFilters: FiltersFormValues = {};
+
+const initialFormFilters: FiltersFormValues = {
+  engine: "",
+  form: "",
+  location: "",
+  transmission: "",
+};
 
 export const useFiltersFormValuesStore = create<FiltersFormValuesStore>()((
   set,
@@ -19,6 +30,14 @@ export const useFiltersFormValuesStore = create<FiltersFormValuesStore>()((
     },
     clearCatalogFilters: () => {
       set({ catalogFilters: initialCatalogFilters });
+    },
+
+    formFilters: initialFormFilters,
+    setFormFilters: (newFormFilters) => {
+      set({ formFilters: newFormFilters });
+    },
+    clearFormFilters: () => {
+      set({ formFilters: initialFormFilters });
     },
   };
 });
