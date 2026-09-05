@@ -12,24 +12,29 @@ import { useFiltersFormValuesStore } from "@/lib/store/filtersStore";
 export default function Catalog() {
   const filters = useFiltersFormValuesStore((store) => store.filters);
 
-  const { data, fetchNextPage } = useInfiniteQuery({
-    queryKey: ["campers", filters],
-    queryFn: ({ pageParam }) => {
-      return getCampers({ page: pageParam, ...filters });
-    },
-    initialPageParam: 1,
-    getNextPageParam: (lastResponse) => {
-      const nextPage = lastResponse.page + 1;
-      return nextPage < lastResponse.totalPages ? nextPage : undefined;
-    },
-    enabled: true,
-    select: (data) => {
-      return {
-        ...data,
-        campers: data.pages.flatMap((page) => page.campers),
-      };
-    },
-  });
+  const { data, fetchNextPage, hasNextPage, isFetching, isFetched, isError } =
+    useInfiniteQuery({
+      queryKey: ["campers", filters],
+      queryFn: ({ pageParam }) => {
+        return getCampers({ page: pageParam, ...filters });
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastResponse) => {
+        const nextPage = lastResponse.page + 1;
+        return nextPage < lastResponse.totalPages ? nextPage : undefined;
+      },
+      enabled: true,
+      select: (data) => {
+        return {
+          ...data,
+          campers: data.pages.flatMap((page) => page.campers),
+        };
+      },
+    });
+
+  const campers = data?.campers ?? [];
+  const hasArticles = campers.length > 0;
+  const showNoResults = isFetched && !isError && !hasArticles;
 
   return (
     <Container>
@@ -38,20 +43,26 @@ export default function Catalog() {
           <FiltersForm />
         </aside>
         <div className={css.campersListWrapper}>
-          <ul className={css.campersList}>
-            {data?.campers.map((camper) => (
-              <li key={camper.id}>
-                <CamperCard camper={camper} />
-              </li>
-            ))}
-          </ul>
-          <button
-            onClick={() => fetchNextPage()}
-            className={clsx(css.loadMoreButton, "buttonClear")}
-            type="button"
-          >
-            Load More
-          </button>
+          {showNoResults && <p>todo: not found</p>}
+          {hasArticles && (
+            <ul className={css.campersList}>
+              {data?.campers.map((camper) => (
+                <li key={camper.id}>
+                  <CamperCard camper={camper} />
+                </li>
+              ))}
+            </ul>
+          )}
+          {hasNextPage && (
+            <button
+              onClick={() => fetchNextPage()}
+              className={clsx(css.loadMoreButton, "buttonClear")}
+              type="button"
+              disabled={isFetching}
+            >
+              {isFetching ? "Loading..." : "Load More"}
+            </button>
+          )}
         </div>
       </section>
     </Container>
