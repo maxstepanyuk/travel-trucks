@@ -35,7 +35,11 @@ export default function FiltersForm() {
     values: FiltersFormValues,
     actions: FormikHelpers<FiltersFormValues>,
   ) {
-    setFilters(values);
+    const setEntries = Object.entries(values).filter(
+      (entry) => entry[1].length > 0,
+    );
+    const usedFilters = Object.fromEntries(setEntries);
+    setFilters(usedFilters);
   }
 
   function handleFormReset(
