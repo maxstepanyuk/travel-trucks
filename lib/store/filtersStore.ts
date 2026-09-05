@@ -7,15 +7,10 @@ interface FiltersFormValuesStore {
   clearFilters: () => void;
 }
 
-const initialFiltersFormValues: FiltersFormValues = {
-  location: "",
-  form: "",
-  transmission: "",
-  engine: "",
-};
+const initialFiltersFormValues: FiltersFormValues = {};
 
 export const useFiltersFormValuesStore = create<FiltersFormValuesStore>()((
-  set
+  set,
 ) => {
   return {
     filters: initialFiltersFormValues,
