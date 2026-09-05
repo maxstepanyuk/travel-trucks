@@ -27,8 +27,8 @@ const initialFiltersFormValues: FiltersFormValues = {
 export default function FiltersForm() {
   const fieldId = useId(); // todo: use for every input and fieldset
 
-  const clearFilters = useFiltersFormValuesStore((store) => store.clearFilters);
-  const setFilters = useFiltersFormValuesStore((store) => store.setFilters);
+  const clearCatalogFilters = useFiltersFormValuesStore((store) => store.clearCatalogFilters);
+  const setCatalogFilters = useFiltersFormValuesStore((store) => store.setCatalogFilters);
 
   const [values, setValues] = useState<FiltersFormValues>(
     initialFiltersFormValues,
@@ -46,12 +46,12 @@ export default function FiltersForm() {
       (entry) => (entry[1] as string).length > 0,
     );
     const usedFilters = Object.fromEntries(setEntries);
-    setFilters(usedFilters);
+    setCatalogFilters(usedFilters);
   }
 
   function handleReset() {
     setValues(initialFiltersFormValues);
-    clearFilters();
+    clearCatalogFilters();
   }
 
   return (

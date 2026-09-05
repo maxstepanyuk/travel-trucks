@@ -2,9 +2,9 @@ import { FiltersFormValues } from "@/types/filters";
 import { create } from "zustand";
 
 interface FiltersFormValuesStore {
-  filters: FiltersFormValues;
-  setFilters: (filters: FiltersFormValues) => void;
-  clearFilters: () => void;
+  catalogFilters: FiltersFormValues;
+  setCatalogFilters: (filters: FiltersFormValues) => void;
+  clearCatalogFilters: () => void;
 }
 
 const initialFiltersFormValues: FiltersFormValues = {};
@@ -13,12 +13,12 @@ export const useFiltersFormValuesStore = create<FiltersFormValuesStore>()((
   set,
 ) => {
   return {
-    filters: initialFiltersFormValues,
-    setFilters: (newFilters) => {
-      set({ filters: newFilters });
+    catalogFilters: initialFiltersFormValues,
+    setCatalogFilters: (newCatalogFilters) => {
+      set({ catalogFilters: newCatalogFilters });
     },
-    clearFilters: () => {
-      set({ filters: initialFiltersFormValues });
+    clearCatalogFilters: () => {
+      set({ catalogFilters: initialFiltersFormValues });
     },
   };
 });

@@ -11,14 +11,18 @@ import { useFiltersFormValuesStore } from "@/lib/store/filtersStore";
 import CatalogNotFound from "@/components/CatalogNotFound/CatalogNotFound";
 
 export default function Catalog() {
-  const filters = useFiltersFormValuesStore((store) => store.filters);
-  const clearFilters = useFiltersFormValuesStore((store) => store.clearFilters);
+  const catalogFilters = useFiltersFormValuesStore(
+    (store) => store.catalogFilters,
+  );
+  const clearCatalogFilters = useFiltersFormValuesStore(
+    (store) => store.clearCatalogFilters,
+  );
 
   const { data, fetchNextPage, hasNextPage, isFetching, isFetched, isError } =
     useInfiniteQuery({
-      queryKey: ["campers", filters],
+      queryKey: ["campers", catalogFilters],
       queryFn: ({ pageParam }) => {
-        return getCampers({ page: pageParam, ...filters });
+        return getCampers({ page: pageParam, ...catalogFilters });
       },
       initialPageParam: 1,
       getNextPageParam: (lastResponse) => {
@@ -46,9 +50,10 @@ export default function Catalog() {
         </aside>
         <div className={css.campersListWrapper}>
           {showNoResults && (
+            // todo mv to non anon function and add logis as needed
             <CatalogNotFound
-              onClearFilters={clearFilters}
-              onViewAllCampers={clearFilters}
+              onClearFilters={() => clearCatalogFilters()}
+              onViewAllCampers={() => clearCatalogFilters()}
             />
           )}
           {hasArticles && (
