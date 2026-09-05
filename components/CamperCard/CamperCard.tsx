@@ -70,6 +70,7 @@ export default function CamperCard({ camper }: CamperCardProps) {
         <Link
           href={"/catalog/" + camper.id}
           className={clsx(css.link, "buttonSolid")}
+          target="_blank"
         >
           Show more
         </Link>
