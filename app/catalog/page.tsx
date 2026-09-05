@@ -12,6 +12,7 @@ import CatalogNotFound from "@/components/CatalogNotFound/CatalogNotFound";
 
 export default function Catalog() {
   const filters = useFiltersFormValuesStore((store) => store.filters);
+  const clearFilters = useFiltersFormValuesStore((store) => store.clearFilters);
 
   const { data, fetchNextPage, hasNextPage, isFetching, isFetched, isError } =
     useInfiniteQuery({
@@ -44,7 +45,12 @@ export default function Catalog() {
           <FiltersForm />
         </aside>
         <div className={css.campersListWrapper}>
-          {showNoResults && <CatalogNotFound />}
+          {showNoResults && (
+            <CatalogNotFound
+              onClearFilters={clearFilters}
+              onViewAllCampers={clearFilters}
+            />
+          )}
           {hasArticles && (
             <ul className={css.campersList}>
               {data?.campers.map((camper) => (

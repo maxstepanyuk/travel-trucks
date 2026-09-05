@@ -4,7 +4,15 @@ import css from "./CatalogNotFound.module.css";
 import image from "@/public/catalog-not-found.png";
 import clsx from "clsx";
 
-export default function CatalogNotFound() {
+interface CatalogNotFoundProps {
+  onClearFilters: () => void;
+  onViewAllCampers: () => void;
+}
+
+export default function CatalogNotFound({
+  onClearFilters,
+  onViewAllCampers,
+}: CatalogNotFoundProps) {
   return (
     <div className={css.wrapper}>
       <Image
@@ -29,7 +37,7 @@ export default function CatalogNotFound() {
         <button
           className={clsx(css.buttonClear, "buttonClear")}
           type="button"
-          onClick={() => {}}
+          onClick={() => onClearFilters()}
         >
           <div className="buttonClearIconWrapper">
             <svg width={12} height={12}>
@@ -39,7 +47,11 @@ export default function CatalogNotFound() {
           Clear filters
         </button>
 
-        <button className={clsx(css.buttonAll, "buttonSolid")} type="button">
+        <button
+          className={clsx(css.buttonAll, "buttonSolid")}
+          type="button"
+          onClick={() => onViewAllCampers()}
+        >
           View all campers
         </button>
       </div>
