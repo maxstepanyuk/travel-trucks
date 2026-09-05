@@ -7,12 +7,15 @@ import { getCampers } from "@/lib/api";
 import css from "./page.module.css";
 import clsx from "clsx";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useFiltersFormValuesStore } from "@/lib/store/filtersStore";
 
 export default function Catalog() {
+  const filters = useFiltersFormValuesStore((store) => store.filters);
+
   const { data, fetchNextPage } = useInfiniteQuery({
-    queryKey: ["campers"],
+    queryKey: ["campers", filters],
     queryFn: ({ pageParam }) => {
-      return getCampers({ page: pageParam });
+      return getCampers({ page: pageParam, ...filters });
     },
     initialPageParam: 1,
     getNextPageParam: (lastResponse) => {
