@@ -7,8 +7,8 @@ export interface FiltersResponse {
 }
 
 export interface FiltersFormValues {
-  location: string;
-  form: string;
-  transmission: string;
-  engine: string;
+  location?: string;
+  form?: string;
+  transmission?: string;
+  engine?: string;
 }
