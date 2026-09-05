@@ -1,0 +1,19 @@
+.loader {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 72px;
+  height: 72px;
+  border: 6px solid var(--inputs);
+  border-bottom-color: var(--green-hover);;
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

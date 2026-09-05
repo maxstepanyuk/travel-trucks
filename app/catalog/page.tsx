@@ -9,6 +9,8 @@ import clsx from "clsx";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useFiltersStore } from "@/lib/store/filtersStore";
 import CatalogNotFound from "@/components/CatalogNotFound/CatalogNotFound";
+import CatalogLoader from "@/components/CatalogLoader/CatalogLoader";
+import ModalStatic from "@/components/ModalStatic/ModalStatic";
 
 export default function Catalog() {
   const catalogFilters = useFiltersStore((store) => store.catalogFilters);
@@ -48,6 +50,11 @@ export default function Catalog() {
           <FiltersForm />
         </aside>
         <div className={css.campersListWrapper}>
+          {isFetching && (
+            <ModalStatic>
+              <CatalogLoader />
+            </ModalStatic>
+          )}
           {showNoResults && (
             <CatalogNotFound
               onClearFilters={() => {
