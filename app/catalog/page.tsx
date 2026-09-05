@@ -7,19 +7,15 @@ import { getCampers } from "@/lib/api";
 import css from "./page.module.css";
 import clsx from "clsx";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useFiltersFormValuesStore } from "@/lib/store/filtersStore";
+import { useFiltersStore } from "@/lib/store/filtersStore";
 import CatalogNotFound from "@/components/CatalogNotFound/CatalogNotFound";
 
 export default function Catalog() {
-  const catalogFilters = useFiltersFormValuesStore(
-    (store) => store.catalogFilters,
-  );
-  const clearCatalogFilters = useFiltersFormValuesStore(
+  const catalogFilters = useFiltersStore((store) => store.catalogFilters);
+  const clearCatalogFilters = useFiltersStore(
     (store) => store.clearCatalogFilters,
   );
-  const clearFormFilters = useFiltersFormValuesStore(
-    (store) => store.clearFormFilters,
-  );
+  const clearFormFilters = useFiltersStore((store) => store.clearFormFilters);
 
   const { data, fetchNextPage, hasNextPage, isFetching, isFetched, isError } =
     useInfiniteQuery({

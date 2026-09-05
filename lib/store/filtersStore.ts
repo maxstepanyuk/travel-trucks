@@ -20,7 +20,7 @@ const initialFormFilters: FiltersFormValues = {
   transmission: "",
 };
 
-export const useFiltersFormValuesStore = create<FiltersFormValuesStore>()((
+export const useFiltersStore = create<FiltersFormValuesStore>()((
   set,
 ) => {
   return {

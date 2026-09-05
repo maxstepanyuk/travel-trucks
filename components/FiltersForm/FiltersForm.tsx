@@ -6,7 +6,7 @@ import css from "./FiltersForm.module.css";
 import { formatLabelText } from "@/lib/util";
 import { FiltersFormValues, FiltersResponse } from "@/types/filters";
 import clsx from "clsx";
-import { useFiltersFormValuesStore } from "@/lib/store/filtersStore";
+import { useFiltersStore } from "@/lib/store/filtersStore";
 
 // to render create form
 // todo: get from api
@@ -19,20 +19,14 @@ const filtersResponse: FiltersResponse = {
 export default function FiltersForm() {
   const fieldId = useId(); // todo: use for every input and fieldset
 
-  const clearCatalogFilters = useFiltersFormValuesStore(
+  const clearCatalogFilters = useFiltersStore(
     (store) => store.clearCatalogFilters,
   );
-  const setCatalogFilters = useFiltersFormValuesStore(
-    (store) => store.setCatalogFilters,
-  );
+  const setCatalogFilters = useFiltersStore((store) => store.setCatalogFilters);
 
-  const formFilters = useFiltersFormValuesStore((store) => store.formFilters);
-  const setFormFilters = useFiltersFormValuesStore(
-    (store) => store.setFormFilters,
-  );
-  const clearFormFilters = useFiltersFormValuesStore(
-    (store) => store.clearFormFilters,
-  );
+  const formFilters = useFiltersStore((store) => store.formFilters);
+  const setFormFilters = useFiltersStore((store) => store.setFormFilters);
+  const clearFormFilters = useFiltersStore((store) => store.clearFormFilters);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
