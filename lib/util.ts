@@ -8,3 +8,12 @@ export function formatLabelText(label: string): string {
     .map((word) => toFirstUpperLetter(word))
     .join(" ");
 }
+
+export function abbreviationToUpperCase(text: string): string {
+  const ABBREVIATIONS = ["tv", "ac"].map((item) => item.toUpperCase());
+
+  if (ABBREVIATIONS.includes(text.toUpperCase())) {
+    return text.toUpperCase();
+  }
+  return text;
+}
