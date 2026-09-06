@@ -3,6 +3,10 @@ import { Inter, Manrope } from "next/font/google";
 
 import "modern-normalize/modern-normalize.css";
 import "./globals.css";
+// swiper
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/thumbs";
 
 import Heder from "@/components/Header/Header";
 import TanStackProvider from "@/components/providers/TanStackProvider/TanStackProvider";

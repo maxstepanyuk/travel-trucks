@@ -1,0 +1,33 @@
+.container {
+  max-width: 638px;
+}
+
+.truckSelectedImageSwiper {
+  margin-bottom: 27px;
+  border-radius: 17px;
+}
+
+.truckSelectedImageSwiperSlide {
+  border-radius: 17px;
+}
+
+.truckAllImagesSwiper swiper-slide {
+  object-fit: cover;
+}
+
+.truckAllImagesSwiperSlide {
+  border-radius: 16px;
+  border: 3px solid transparent;
+
+  transition: border 250ms;
+
+  cursor: pointer;
+
+  &:hover {
+    border: 3px solid var(--green-hover);
+  }
+}
+
+:global(.swiper-slide-thumb-active img) {
+  border: 3px solid var(--grey-green);
+}
