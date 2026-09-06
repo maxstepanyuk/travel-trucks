@@ -27,7 +27,7 @@ export function formatApiMeters(text: string): string {
 
 export function formatApiLiters(text: string): string {
   if (text.endsWith("l")) {
-    return text.replace("l", " L");
+    return text.replace("l", " l");
   }
   return text;
 }
