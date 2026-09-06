@@ -10,6 +10,8 @@ import LoaderSpinner from "@/components/LoaderSpinner/LoaderSpinner";
 import CamperDetailsInfoCard from "@/components/CamperDetailsInfoCard/CamperDetailsInfoCard";
 import ReviewCard from "@/components/ReviewCard/ReviewCard";
 import CamperDetailsBookingForm from "@/components/CamperDetailsBookingForm/CamperDetailsBookingForm";
+import CatalogLoader from "@/components/CatalogLoader/CatalogLoader";
+import ModalStatic from "@/components/ModalStatic/ModalStatic";
 
 export default function Details() {
   const { camperId } = useParams<{ camperId: string }>();
@@ -28,10 +30,20 @@ export default function Details() {
     },
   });
 
-  // todo center LoaderSpinner and error. or error as toast
-  if (isFetchingCamper || isFetchingReviews) return <LoaderSpinner />;
-  if (!camper) return <p>todo: camper not found</p>;
-  if (!reviews) return <p>todo: reviews not found</p>;
+  // todo upd Loader and error. or error as toast
+  if (isFetchingCamper || isFetchingReviews) {
+    return (
+      <ModalStatic>
+        <CatalogLoader />
+      </ModalStatic>
+    );
+  }
+  if (!camper)
+    return (
+      <div className={css.center}>
+        <h1>Camper not found</h1>
+      </div>
+    );
 
   return (
     <Container>
@@ -43,11 +55,17 @@ export default function Details() {
         <h2 className={css.reviewsSectionBookingTitle}>Reviews</h2>
         <div className={css.reviewsSectionBookingWrap}>
           <ul className={css.reviewsSection}>
-            {reviews.map((item) => (
-              <li key={item.id}>
-                <ReviewCard review={item} />
-              </li>
-            ))}
+            {!reviews ? (
+              <div className={css.center}>
+                <h1>No reviews not found</h1>
+              </div>
+            ) : (
+              reviews.map((item) => (
+                <li key={item.id}>
+                  <ReviewCard review={item} />
+                </li>
+              ))
+            )}
           </ul>
           <div className={css.bookForm}>
             <CamperDetailsBookingForm camperId={camperId} />

@@ -30,3 +30,9 @@
   width: 623px;
   height: 384px;
 }
+
+.center {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
