@@ -50,7 +50,7 @@ export default function Details() {
             ))}
           </ul>
           <div className={css.bookForm}>
-            <CamperDetailsBookingForm />
+            <CamperDetailsBookingForm camperId={camperId} />
           </div>
         </div>
       </section>
