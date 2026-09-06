@@ -1,6 +1,7 @@
 import CamperImageEntity from "@/types/camper";
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper as SwiperClass } from "swiper";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import Image from "next/image";
 
@@ -18,18 +19,16 @@ export default function CamperDetailsGallerySwiper({
     (left, right) => left.order - right.order,
   );
 
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
 
   return (
     <div className={css.container}>
       <Swiper
         className={css.truckSelectedImageSwiper}
         loop={true}
-        spaceBetween={0}
-        navigation={true}
+        spaceBetween={24}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Thumbs]}
-        // className="mySwiper2"
       >
         {sortedGallery.map((img) => (
           <SwiperSlide key={img.id}>
@@ -45,7 +44,6 @@ export default function CamperDetailsGallerySwiper({
       </Swiper>
       <Swiper
         className={css.truckAllImagesSwiper}
-        // todo fix
         onSwiper={setThumbsSwiper}
         loop={slidesPerView < sortedGallery.length}
         spaceBetween={32}
