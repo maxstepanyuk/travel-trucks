@@ -1,3 +1,4 @@
+import { BookingRequestDto } from "@/types/booking";
 import {
   CamperDetailsEntity,
   CamperEngine,
@@ -27,6 +28,15 @@ export interface GetCampersResponse {
   total: number;
   totalPages: number;
   campers: CamperListItemDto[];
+}
+
+export interface CreateBookingForCamper {
+  camperId: string;
+  bookingRequest: BookingRequestDto;
+}
+
+export interface createBookingForCamperResponse {
+  message: string;
 }
 
 export async function getCampers({
@@ -62,4 +72,15 @@ export async function getCamperReviewsByCamperId(
     "/campers/" + camperId + "/reviews",
   );
   return res.data;
+}
+
+export async function createBookingForCamper({
+  camperId,
+  bookingRequest,
+}: CreateBookingForCamper): Promise<createBookingForCamperResponse> {
+  const { data } = await campersApi.post<createBookingForCamperResponse>(
+    "/campers/" + camperId + "/booking-requests",
+    bookingRequest,
+  );
+  return data;
 }
