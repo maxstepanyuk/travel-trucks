@@ -1,0 +1,11 @@
+.section {
+  padding: 48px 0px;
+  display: flex;
+  gap: 65px;
+}
+
+.topSection {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
