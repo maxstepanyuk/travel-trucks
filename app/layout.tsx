@@ -10,6 +10,7 @@ import "swiper/css/thumbs";
 
 import Heder from "@/components/Header/Header";
 import TanStackProvider from "@/components/providers/TanStackProvider/TanStackProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   variable: "--font-family", // todo: rename
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Heder />
           {children}
         </TanStackProvider>
+        <Toaster />
       </body>
     </html>
   );
