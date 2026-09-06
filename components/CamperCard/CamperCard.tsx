@@ -3,6 +3,7 @@ import css from "./CamperCard.module.css";
 import clsx from "clsx";
 import Link from "next/link";
 import { CamperListItemDto } from "@/types/camper";
+import { formatLabelText } from "@/lib/util";
 
 interface CamperCardProps {
   camper: CamperListItemDto;
@@ -52,19 +53,19 @@ export default function CamperCard({ camper }: CamperCardProps) {
             <svg width="20" height="20" fill="ff0000">
               <use href={"/sprite.svg#badge-engine-fuel"} />
             </svg>
-            <p className={css.badgeText}>{camper.engine}</p>
+            <p className={css.badgeText}>{formatLabelText(camper.engine)}</p>
           </li>
           <li className={clsx(css.badgeItem, "badge")}>
             <svg width="20" height="20" fill="ff0000">
               <use href={"/sprite.svg#badge-transmission"} />
             </svg>
-            <p className={css.badgeText}>{camper.transmission}</p>
+            <p className={css.badgeText}>{formatLabelText(camper.transmission)}</p>
           </li>
           <li className={clsx(css.badgeItem, "badge")}>
             <svg width="20" height="20" fill="ff0000">
               <use href={"/sprite.svg#badge-form"} />
             </svg>
-            <p className={css.badgeText}>{camper.form}</p>
+            <p className={css.badgeText}>{formatLabelText(camper.form)}</p>
           </li>
         </ul>
         <Link
