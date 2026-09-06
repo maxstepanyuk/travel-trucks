@@ -5,6 +5,7 @@ import {
   CamperListItemDto,
   CamperTransmission,
 } from "@/types/camper";
+import { ReviewEntity } from "@/types/review";
 import axios from "axios";
 
 const campersApi = axios.create({
@@ -51,5 +52,14 @@ export async function getCampers({
 
 export async function getCamperById(id: string): Promise<CamperDetailsEntity> {
   const res = await campersApi.get<CamperDetailsEntity>("/campers/" + id);
+  return res.data;
+}
+
+export async function getCamperReviewsByCamperId(
+  camperId: string,
+): Promise<ReviewEntity[]> {
+  const res = await campersApi.get<ReviewEntity[]>(
+    "/campers/" + camperId + "/reviews",
+  );
   return res.data;
 }
