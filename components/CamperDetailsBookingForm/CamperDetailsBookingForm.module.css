@@ -11,7 +11,7 @@
   border-radius: 16px;
   padding: 44px;
   width: 641px;
-  height: 382px;
+  min-height: 382px;
 }
 
 .title {
@@ -42,12 +42,12 @@
   gap: 24px;
 
   width: 527px;
-  height: 214px;
+  min-height: 214px;
 }
 
 .fields {
   width: 527px;
-  height: 134px;
+  min-height: 134px;
 
   display: flex;
   align-items: flex-start;
@@ -70,7 +70,7 @@
   padding-block: 18px;
   padding-inline: 18px 337px;
   width: 527px;
-  height: 60px;
+  min-height: 60px;
 
   background: var(--inputs);
 
@@ -105,7 +105,7 @@
   padding-block: 18px;
   padding-inline: 18px 0;
   width: 527px;
-  height: 60px;
+  min-height: 60px;
 
   background: #ffdfdf;
 }
@@ -125,5 +125,5 @@
   padding-block: 16px;
   padding-inline: 60px;
   width: 527px;
-  height: 56px;
+  min-height: 56px;
 }
