@@ -3,6 +3,9 @@ import css from "./CamperDetailsBookingForm.module.css";
 import clsx from "clsx";
 import { BookingRequestDto } from "@/types/booking";
 import * as Yup from "yup";
+import { useMutation } from "@tanstack/react-query";
+import { CreateBookingForCamper, createBookingForCamper } from "@/lib/api";
+import toast from "react-hot-toast";
 
 const initialValues: BookingRequestDto = {
   name: "",
@@ -11,11 +14,43 @@ const initialValues: BookingRequestDto = {
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().min(2).required("Please enter your name."),
-  email: Yup.string().email().required("Please enter your name."),
+  email: Yup.string().email().required("Please enter your email."),
 });
 
-export default function CamperDetailsBookingForm() {
-  const isPending = true;
+interface CamperDetailsBookingFormProps {
+  camperId: string;
+}
+
+export default function CamperDetailsBookingForm({
+  camperId,
+}: CamperDetailsBookingFormProps) {
+  const { mutate, isPending } = useMutation({
+    mutationFn: createBookingForCamper,
+    onSuccess: ({ message }) => {
+      toast(message);
+    },
+    onError: (e) => {
+      const msg = "Error creating booking";
+      console.log(msg, e);
+      toast.error(msg);
+    },
+  });
+
+  const handleSubmit = (
+    formValues: BookingRequestDto,
+    actions: FormikHelpers<BookingRequestDto>,
+  ) => {
+    const bookingAndId: CreateBookingForCamper = {
+      camperId: camperId,
+      bookingRequest: formValues,
+    };
+
+    mutate(bookingAndId, {
+      onSuccess: () => {
+        actions.resetForm();
+      },
+    });
+  };
 
   return (
     <div className={css.card}>
@@ -26,7 +61,7 @@ export default function CamperDetailsBookingForm() {
         </p>
       </div>
       <Formik
-        onSubmit={() => {}}
+        onSubmit={handleSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}
       >
