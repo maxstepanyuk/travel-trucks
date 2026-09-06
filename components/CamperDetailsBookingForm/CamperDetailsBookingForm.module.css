@@ -1,0 +1,129 @@
+/* todo clean */
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+
+  border: 1px solid var(--gray-light);
+  border-radius: 16px;
+  padding: 44px;
+  width: 641px;
+  min-height: 382px;
+}
+
+.title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 8px;
+
+  width: 527px;
+}
+
+.supportingText {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+
+  /* line-height: 24px; */
+  line-height: 1.5;
+  color: var(--gray);
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 24px;
+
+  width: 527px;
+  min-height: 214px;
+}
+
+.fields {
+  width: 527px;
+  min-height: 134px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.input {
+  outline: none;
+  border: none;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 10px;
+
+  border-radius: 12px;
+  padding-block: 18px;
+  padding-inline: 18px 337px;
+  width: 527px;
+  min-height: 60px;
+
+  background: var(--inputs);
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+
+  /* line-height: 24px; */
+  line-height: 1.5;
+  color: var(--main);
+}
+
+.input::placeholder {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+
+  /* line-height: 24px; */
+  line-height: 1.5;
+  color: var(--gray);
+}
+
+.inputError {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 10px;
+
+  border: 1px solid var(--button);
+  border-radius: 12px;
+  padding-block: 18px;
+  padding-inline: 18px 0;
+  width: 527px;
+  min-height: 60px;
+
+  background: #ffdfdf;
+}
+
+.error {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+
+  /* line-height: 24px; */
+  line-height: 1.5;
+  color: var(--button);
+}
+
+.submit {
+  border-radius: 200px;
+  padding-block: 16px;
+  padding-inline: 60px;
+  width: 527px;
+  min-height: 56px;
+}

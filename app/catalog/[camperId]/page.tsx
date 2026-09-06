@@ -9,6 +9,7 @@ import CamperDetailsGallerySwiper from "@/components/CamperDetailsGallerySwiper/
 import LoaderSpinner from "@/components/LoaderSpinner/LoaderSpinner";
 import CamperDetailsInfoCard from "@/components/CamperDetailsInfoCard/CamperDetailsInfoCard";
 import ReviewCard from "@/components/ReviewCard/ReviewCard";
+import CamperDetailsBookingForm from "@/components/CamperDetailsBookingForm/CamperDetailsBookingForm";
 
 export default function Details() {
   const { camperId } = useParams<{ camperId: string }>();
@@ -44,11 +45,13 @@ export default function Details() {
           <ul className={css.reviewsSection}>
             {reviews.map((item) => (
               <li key={item.id}>
-                <ReviewCard review={item}/>
+                <ReviewCard review={item} />
               </li>
             ))}
           </ul>
-          <div className={css.bookForm}>bookForm</div>
+          <div className={css.bookForm}>
+            <CamperDetailsBookingForm camperId={camperId} />
+          </div>
         </div>
       </section>
     </Container>
