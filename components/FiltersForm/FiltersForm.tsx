@@ -4,7 +4,7 @@ import { useId } from "react";
 
 import css from "./FiltersForm.module.css";
 import { formatLabelText } from "@/lib/util";
-import { FiltersFormValues, FiltersResponse } from "@/types/filters";
+import { FiltersResponse } from "@/types/filters";
 import clsx from "clsx";
 import { useFiltersStore } from "@/lib/store/filtersStore";
 
