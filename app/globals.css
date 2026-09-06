@@ -131,6 +131,6 @@ ul {
 }
 
 /* swiper */
-:global(.swiper-slide img) {
+.swiper-slide img {
   object-fit: cover !important;
 }
