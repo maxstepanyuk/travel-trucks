@@ -1,0 +1,87 @@
+/* todo clean */
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 16px;
+
+  border-radius: 16px;
+  padding: 16px;
+  width: 623px;
+  min-height: 180px;
+
+  background: var(--inputs);
+}
+
+.person {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 16px;
+
+  width: 172px;
+  height: 60px;
+}
+
+.avatarLetter {
+  border-radius: 60px;
+  width: 60px;
+  height: 60px;
+
+  background: var(--white);
+
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+
+  /* line-height: 32px; */
+  line-height: 1.33333;
+  color: var(--grey-green);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrapNameStars {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 4px;
+  width: 96px;
+  height: 44px;
+}
+
+.name {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+
+  /* line-height: 24px; */
+  line-height: 1.5;
+  color: var(--main);
+}
+
+.stars {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 4px;
+
+  width: 96px;
+  height: 16px;
+}
+.reviewText {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+
+  /* line-height: 24px; */
+  line-height: 1.5;
+  color: var(--text);
+}
