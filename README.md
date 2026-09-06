@@ -40,3 +40,48 @@ Utilities
 - ESLint
 - Vercel
 - Git/GitHub
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/maxstepanyuk/travel-trucks.git
+   cd travel-trucks
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env.local` file in the project root if the app requires any environment variables (e.g. an API base URL), and add them there.
+
+## Usage
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
+
+Other available scripts:
+
+| Command         | Description                |
+|-----------------|-----------------------------|
+| `npm run dev`   | Start the app in dev mode   |
+| `npm run build` | Build the app for production|
+| `npm run start` | Run the production build    |
+| `npm run lint`  | Lint the codebase           |
+
+Once running, you can browse the camper catalog, use the filters to narrow results, open a vehicle's page for full details, add vans to favorites, and submit a booking request form.
+
+## Live demo
+
+[https://travel-trucks-woad-two.vercel.app](https://travel-trucks-woad-two.vercel.app)
+
+## Author
+
+**Max Stepanyuk**
+GitHub: [@maxstepanyuk](https://github.com/maxstepanyuk)
