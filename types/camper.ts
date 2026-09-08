@@ -1,8 +1,22 @@
-// todo:? export type CamperForm = "" | ""; and so on
-export type CamperForm = string;
-export type CamperTransmission = string;
-export type CamperEngine = string;
-export type CamperAmenity = string;
+export type CamperTransmission = string | "automatic" | "manual";
+export type CamperEngine = string | "diesel" | "petrol" | "hybrid" | "electric";
+export type CamperForm =
+  | string
+  | "alcove"
+  | "panel_van"
+  | "integrated"
+  | "semi_integrated";
+export type CamperAmenity =
+  | string
+  | "ac"
+  | "bathroom"
+  | "kitchen"
+  | "tv"
+  | "radio"
+  | "refrigerator"
+  | "microwave"
+  | "gas"
+  | "water";
 
 export interface CamperListItemDto {
   id: string;
@@ -19,7 +33,7 @@ export interface CamperListItemDto {
   consumption: string;
   transmission: string;
   engine: CamperEngine;
-  amenities: CamperAmenity[];
+  amenities: CamperAmenity | CamperAmenity[];
   createdAt: string;
   updatedAt: string;
   coverImage: string;
@@ -41,7 +55,7 @@ export interface CamperDetailsEntity {
   consumption: string;
   transmission: string;
   engine: CamperEngine;
-  amenities: CamperAmenity[];
+  amenities: CamperAmenity | CamperAmenity[];
   createdAt: string;
   updatedAt: string;
   gallery: CamperImageEntity[];
