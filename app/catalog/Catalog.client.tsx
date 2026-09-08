@@ -25,6 +25,7 @@ export default function CatalogClient() {
       queryFn: ({ pageParam }) => {
         return getCampers({ page: pageParam, ...catalogFilters });
       },
+      refetchOnMount: false,
       initialPageParam: 1,
       getNextPageParam: (lastResponse) => {
         const nextPage = lastResponse.page + 1;
