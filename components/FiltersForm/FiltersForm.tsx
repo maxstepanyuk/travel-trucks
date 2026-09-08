@@ -22,7 +22,7 @@ export default function FiltersForm() {
   const setFormFilters = useFiltersStore((store) => store.setFormFilters);
   const clearFormFilters = useFiltersStore((store) => store.clearFormFilters);
 
-  const { data: filtersResponse } = useQuery({
+  const { data: filtersResponse, isLoading: isLoadingFilters } = useQuery({
     queryKey: ["campers-filters-api"],
     queryFn: getCamperFilters,
   });
@@ -73,6 +73,11 @@ export default function FiltersForm() {
         </div>
 
         <div className={css.filters}>
+          {isLoadingFilters && (
+            <div className={css.centerLoader}>
+              <LoaderSpinner />
+            </div>
+          )}
           {filtersResponse && <h2 className={css.filtersTitle}>Filters</h2>}
 
           {/* todo???: render fieldset(s) from `Object.entries()` */}
