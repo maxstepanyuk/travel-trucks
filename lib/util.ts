@@ -56,3 +56,7 @@ export function formatApiConsumption(text: string): string {
 
   return formatText;
 }
+
+export function singleStringArrayWrap(input: string | string[]): string[] {
+  return Array.isArray(input) ? input : [input];
+}
