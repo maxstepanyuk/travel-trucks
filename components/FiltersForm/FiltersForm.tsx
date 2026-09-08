@@ -4,17 +4,11 @@ import { useId } from "react";
 
 import css from "./FiltersForm.module.css";
 import { formatLabelText } from "@/lib/util";
-import { FiltersResponse } from "@/types/filters";
 import clsx from "clsx";
 import { useFiltersStore } from "@/lib/store/filtersStore";
-
-// to render create form
-// todo: get from api
-const filtersResponse: FiltersResponse = {
-  forms: ["alcove", "panel_van", "integrated", "semi_integrated"],
-  transmissions: ["automatic", "manual"],
-  engines: ["diesel", "petrol", "hybrid", "electric"],
-};
+import { useQuery } from "@tanstack/react-query";
+import { getCamperFilters } from "@/lib/api";
+import LoaderSpinner from "../LoaderSpinner/LoaderSpinner";
 
 export default function FiltersForm() {
   const fieldId = useId(); // todo: use for every input and fieldset
@@ -27,6 +21,11 @@ export default function FiltersForm() {
   const formFilters = useFiltersStore((store) => store.formFilters);
   const setFormFilters = useFiltersStore((store) => store.setFormFilters);
   const clearFormFilters = useFiltersStore((store) => store.clearFormFilters);
+
+  const { data: filtersResponse } = useQuery({
+    queryKey: ["campers-filters-api"],
+    queryFn: getCamperFilters,
+  });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -74,65 +73,72 @@ export default function FiltersForm() {
         </div>
 
         <div className={css.filters}>
-          <h2 className={css.filtersTitle}>Filters</h2>
+          {filtersResponse && <h2 className={css.filtersTitle}>Filters</h2>}
 
+          {/* todo???: render fieldset(s) from `Object.entries()` */}
           <div className={css.fieldsetsWrapper}>
-            <fieldset className={css.fieldset}>
-              <legend className={css.legend}>Camper form</legend>
-              <div className={css.radioList}>
-                {filtersResponse.forms.map((item) => (
-                  <label key={item} className={css.radioLabel}>
-                    <input
-                      className={css.radioInput}
-                      type="radio"
-                      name="form"
-                      value={item}
-                      checked={formFilters.form === item}
-                      onChange={handleChange}
-                    />
-                    {formatLabelText(item)}
-                  </label>
-                ))}
-              </div>
-            </fieldset>
+            {filtersResponse && filtersResponse.forms && (
+              <fieldset className={css.fieldset}>
+                <legend className={css.legend}>Camper form</legend>
+                <div className={css.radioList}>
+                  {filtersResponse.forms.map((item) => (
+                    <label key={item} className={css.radioLabel}>
+                      <input
+                        className={css.radioInput}
+                        type="radio"
+                        name="form"
+                        value={item}
+                        checked={formFilters.form === item}
+                        onChange={handleChange}
+                      />
+                      {formatLabelText(item)}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            )}
 
-            <fieldset className={css.fieldset}>
-              <legend className={css.legend}>Engine</legend>
-              <div className={css.radioList}>
-                {filtersResponse.engines.map((item) => (
-                  <label key={item} className={css.radioLabel}>
-                    <input
-                      className={css.radioInput}
-                      type="radio"
-                      name="engine"
-                      value={item}
-                      checked={formFilters.engine === item}
-                      onChange={handleChange}
-                    />
-                    {formatLabelText(item)}
-                  </label>
-                ))}
-              </div>
-            </fieldset>
+            {filtersResponse && filtersResponse.engines && (
+              <fieldset className={css.fieldset}>
+                <legend className={css.legend}>Engine</legend>
+                <div className={css.radioList}>
+                  {filtersResponse.engines.map((item) => (
+                    <label key={item} className={css.radioLabel}>
+                      <input
+                        className={css.radioInput}
+                        type="radio"
+                        name="engine"
+                        value={item}
+                        checked={formFilters.engine === item}
+                        onChange={handleChange}
+                      />
+                      {formatLabelText(item)}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            )}
 
-            <fieldset className={css.fieldset}>
-              <legend className={css.legend}>Transmission</legend>
-              <div className={css.radioList}>
-                {filtersResponse.transmissions.map((item) => (
-                  <label key={item} className={css.radioLabel}>
-                    <input
-                      className={css.radioInput}
-                      type="radio"
-                      name="transmission"
-                      value={item}
-                      checked={formFilters.transmission === item}
-                      onChange={handleChange}
-                    />
-                    {formatLabelText(item)}
-                  </label>
-                ))}
-              </div>
-            </fieldset>
+            {filtersResponse && (
+              <fieldset className={css.fieldset}>
+                <legend className={css.legend}>Transmission</legend>
+                <div className={css.radioList}>
+                  {filtersResponse.transmissions.map((item) => (
+                    <label key={item} className={css.radioLabel}>
+                      <input
+                        className={css.radioInput}
+                        type="radio"
+                        name="transmission"
+                        value={item}
+                        checked={formFilters.transmission === item}
+                        onChange={handleChange}
+                      />
+                      {formatLabelText(item)}
+                    </label>
+                  ))}
+                </div>
+              </fieldset>
+            )}
           </div>
         </div>
       </div>
