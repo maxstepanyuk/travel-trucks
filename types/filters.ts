@@ -1,6 +1,6 @@
 import { CamperEngine, CamperForm, CamperTransmission } from "./camper";
 
-export interface FiltersResponse {
+export interface FiltersResponseDto {
   forms: CamperForm[];
   transmissions: CamperTransmission[];
   engines: CamperEngine[];
