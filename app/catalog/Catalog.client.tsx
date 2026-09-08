@@ -12,7 +12,7 @@ import CatalogNotFound from "@/components/CatalogNotFound/CatalogNotFound";
 import CatalogLoader from "@/components/CatalogLoader/CatalogLoader";
 import ModalStatic from "@/components/ModalStatic/ModalStatic";
 
-export default function Catalog() {
+export default function CatalogClient() {
   const catalogFilters = useFiltersStore((store) => store.catalogFilters);
   const clearCatalogFilters = useFiltersStore(
     (store) => store.clearCatalogFilters,
