@@ -20,6 +20,7 @@ export default function DetailsClient() {
     queryFn: () => {
       return getCamperById(camperId);
     },
+    refetchOnMount: false,
   });
 
   const { data: reviews, isFetching: isFetchingReviews } = useQuery({
@@ -27,6 +28,7 @@ export default function DetailsClient() {
     queryFn: () => {
       return getCamperReviewsByCamperId(camperId);
     },
+    refetchOnMount: false,
   });
 
   // todo upd Loader and error. or error as toast
