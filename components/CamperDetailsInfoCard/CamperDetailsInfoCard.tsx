@@ -8,6 +8,7 @@ import {
   formatApiLiters,
   formatApiMeters,
   formatLabelText,
+  singleStringArrayWrap,
   toFirstUpperLetter,
 } from "@/lib/util";
 
@@ -56,7 +57,7 @@ export default function CamperDetailsInfoCard({
             <h2 className={css.name}>Vehicle details</h2>
           </div>
           <ul className={css.badgesList}>
-            {camper.amenities.map((item) => {
+            {singleStringArrayWrap(camper.amenities).map((item) => {
               const formatItem = abbreviationToUpperCase(
                 toFirstUpperLetter(item),
               );

@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import css from "./page.module.css";
 import CamperDetailsGallerySwiper from "@/components/CamperDetailsGallerySwiper/CamperDetailsGallerySwiper";
-import LoaderSpinner from "@/components/LoaderSpinner/LoaderSpinner";
 import CamperDetailsInfoCard from "@/components/CamperDetailsInfoCard/CamperDetailsInfoCard";
 import ReviewCard from "@/components/ReviewCard/ReviewCard";
 import CamperDetailsBookingForm from "@/components/CamperDetailsBookingForm/CamperDetailsBookingForm";

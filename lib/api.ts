@@ -6,6 +6,7 @@ import {
   CamperListItemDto,
   CamperTransmission,
 } from "@/types/camper";
+import { FiltersResponseDto } from "@/types/filters";
 import { ReviewEntity } from "@/types/review";
 import axios from "axios";
 
@@ -83,4 +84,9 @@ export async function createBookingForCamper({
     bookingRequest,
   );
   return data;
+}
+
+export async function getCamperFilters(): Promise<FiltersResponseDto> {
+  const res = await campersApi.get<FiltersResponseDto>("/campers/filters");
+  return res.data;
 }
