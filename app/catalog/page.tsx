@@ -1,92 +1,36 @@
-"use client";
+import { getCamperFilters, getCampers } from "@/lib/api";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { initialCatalogFilters } from "@/lib/store/filtersStore";
+import CatalogClient from "./Catalog.client";
 
-import CamperCard from "@/components/CamperCard/CamperCard";
-import Container from "@/components/Container/Container";
-import FiltersForm from "@/components/FiltersForm/FiltersForm";
-import { getCampers } from "@/lib/api";
-import css from "./page.module.css";
-import clsx from "clsx";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useFiltersStore } from "@/lib/store/filtersStore";
-import CatalogNotFound from "@/components/CatalogNotFound/CatalogNotFound";
-import CatalogLoader from "@/components/CatalogLoader/CatalogLoader";
-import ModalStatic from "@/components/ModalStatic/ModalStatic";
+// todo meta
 
-export default function Catalog() {
-  const catalogFilters = useFiltersStore((store) => store.catalogFilters);
-  const clearCatalogFilters = useFiltersStore(
-    (store) => store.clearCatalogFilters,
-  );
-  const clearFormFilters = useFiltersStore((store) => store.clearFormFilters);
+const INIT_PAGE_NUMBER = 1;
 
-  const { data, fetchNextPage, hasNextPage, isFetching, isFetched, isError } =
-    useInfiniteQuery({
-      queryKey: ["campers", catalogFilters],
-      queryFn: ({ pageParam }) => {
-        return getCampers({ page: pageParam, ...catalogFilters });
-      },
-      initialPageParam: 1,
-      getNextPageParam: (lastResponse) => {
-        const nextPage = lastResponse.page + 1;
-        return nextPage < lastResponse.totalPages ? nextPage : undefined;
-      },
-      enabled: true,
-      select: (data) => {
-        return {
-          ...data,
-          campers: data.pages.flatMap((page) => page.campers),
-        };
-      },
-    });
+export default async function Catalog() {
+  const queryClient = new QueryClient();
 
-  const campers = data?.campers ?? [];
-  const hasArticles = campers.length > 0;
-  const showNoResults = isFetched && !isError && !hasArticles;
+  // todo?: like promise-all
+  await queryClient.infiniteQuery({
+    queryKey: ["campers", initialCatalogFilters],
+    queryFn: () => {
+      return getCampers({ page: INIT_PAGE_NUMBER, ...initialCatalogFilters });
+    },
+    initialPageParam: INIT_PAGE_NUMBER,
+  });
+
+  await queryClient.query({
+    queryKey: ["campers-filters-api"],
+    queryFn: getCamperFilters,
+  });
 
   return (
-    <Container>
-      <section className={css.section}>
-        <aside>
-          <FiltersForm />
-        </aside>
-        <div className={css.campersListWrapper}>
-          {isFetching && (
-            <ModalStatic>
-              <CatalogLoader />
-            </ModalStatic>
-          )}
-          {showNoResults && (
-            <CatalogNotFound
-              onClearFilters={() => {
-                clearFormFilters();
-                clearCatalogFilters();
-              }}
-              onViewAllCampers={() => {
-                clearCatalogFilters();
-              }}
-            />
-          )}
-          {hasArticles && (
-            <ul className={css.campersList}>
-              {data?.campers.map((camper) => (
-                <li key={camper.id}>
-                  <CamperCard camper={camper} />
-                </li>
-              ))}
-            </ul>
-          )}
-          {hasNextPage && (
-            <button
-              onClick={() => fetchNextPage()}
-              className={clsx(css.loadMoreButton, "buttonClear")}
-              type="button"
-              disabled={isFetching}
-            >
-              {isFetching ? "Loading..." : "Load More"}
-            </button>
-          )}
-        </div>
-      </section>
-    </Container>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <CatalogClient />
+    </HydrationBoundary>
   );
 }
