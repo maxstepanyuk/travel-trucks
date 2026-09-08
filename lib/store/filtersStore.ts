@@ -11,9 +11,9 @@ interface FiltersFormValuesStore {
   clearFormFilters: () => void;
 }
 
-const initialCatalogFilters: FiltersFormValues = {};
+export const initialCatalogFilters: FiltersFormValues = {};
 
-const initialFormFilters: FiltersFormValues = {
+export const initialFormFilters: FiltersFormValues = {
   engine: "",
   form: "",
   location: "",
