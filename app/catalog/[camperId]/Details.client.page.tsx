@@ -12,7 +12,7 @@ import CamperDetailsBookingForm from "@/components/CamperDetailsBookingForm/Camp
 import CatalogLoader from "@/components/CatalogLoader/CatalogLoader";
 import ModalStatic from "@/components/ModalStatic/ModalStatic";
 
-export default function Details() {
+export default function DetailsClient() {
   const { camperId } = useParams<{ camperId: string }>();
 
   const { data: camper, isFetching: isFetchingCamper } = useQuery({
